@@ -7,5 +7,9 @@ export default {
     style: style,
     template: template,
     props: {},
-    data: {},
+    data() {
+        return {
+            storyTitle: '框架介绍'
+        }
+    },
 }

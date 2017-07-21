@@ -8,7 +8,8 @@ export default {
     props: {},
     data: {
         navItems: ['开发起源', '基础教程', 'API'],
-        selectItem: 0
+        selectItem: 0,
+        title:'TotoroFrame'
     },
     methods: {
         changeNavItem: function (idx) {
