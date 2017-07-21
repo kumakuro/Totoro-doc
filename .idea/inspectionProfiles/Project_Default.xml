@@ -1,0 +1,26 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="12">
+            <item index="0" class="java.lang.String" itemvalue="router-view" />
+            <item index="1" class="java.lang.String" itemvalue="turo-name" />
+            <item index="2" class="java.lang.String" itemvalue="turo-on" />
+            <item index="3" class="java.lang.String" itemvalue="props-id" />
+            <item index="4" class="java.lang.String" itemvalue="turo-emit" />
+            <item index="5" class="java.lang.String" itemvalue="emit-parentmethod" />
+            <item index="6" class="java.lang.String" itemvalue="emit-parent-method" />
+            <item index="7" class="java.lang.String" itemvalue="emit-parent" />
+            <item index="8" class="java.lang.String" itemvalue="emit-test" />
+            <item index="9" class="java.lang.String" itemvalue="props-id-num" />
+            <item index="10" class="java.lang.String" itemvalue="toro-name" />
+            <item index="11" class="java.lang.String" itemvalue="toro-on" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+  </profile>
+</component>

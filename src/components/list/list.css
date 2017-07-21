@@ -1,0 +1,11 @@
+.text-red {
+    display: block;
+    color: red;
+    width: 500px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.group{
+    list-style: none;
+}

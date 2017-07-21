@@ -1,0 +1,7 @@
+.h1 {
+    font-size: 30px;
+}
+
+.h1:before {
+    border-right: 1px solid #0591e6;
+}

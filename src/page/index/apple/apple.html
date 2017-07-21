@@ -1,0 +1,18 @@
+<div id="apple">
+    <div class="{{ style.header }}">
+        <div toro-name="header"></div>
+    </div>
+
+    <div class="{{ style.aside }}">
+    </div>
+
+    <div class="{{ style.main }}">
+        <div class="{{ style.container }}">
+            <div router-view></div>
+        </div>
+    </div>
+
+    <div class="{{ style.footer }}">
+        <span class="{{ style.copyright }}">{{data.copyright}}</span>
+    </div>
+</div>
