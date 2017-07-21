@@ -74,7 +74,6 @@ function Totoro(opt) {
         }
         let refSlot = {};
         if (this.$isRoute) {
-            console.log(this.$routerObject);
             refSlot = getRouteSlotRef(this.$routerObject, this.$routeName);
         } else {
             refSlot = getParentSlots(this.$parent, this.$name)[0];

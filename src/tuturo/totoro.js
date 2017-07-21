@@ -54,12 +54,6 @@ function configPage(el, routesConfig) {
     registerRouter(rootRouter);
     page.start(null);
 
-    let currentHref = window.location.pathname;
-    let href = currentHref.substring(currentHref.indexOf(routesConfig.base));
-    if (href !== '/') {
-        page(href);
-    }
-    //TODO 需要增加读取当前路由地址，并迭代跳转的功能，这样才能解决刷新后，页面不响应地址栏的问题
 }
 
 /**
@@ -146,17 +140,6 @@ function registerRouter(parentRouter) {
             for (let i = 0; i < router.$totoros.length; i++) {
                 router.$totoros[i].$route = ctx;
                 router.$totoros[i].$create();
-
-                // console.log(router);
-                // if (router.hasOwnProperty('$children')) {
-                //     for (let i = 0; i < router.$children.length; i++) {
-                //         let totoros = router.$children[i].$totoros;
-                //         for (let j = 0; j < totoros.length; j++) {
-                //
-                //         }
-                //
-                //     }
-                // }
             }
             next();
         };
