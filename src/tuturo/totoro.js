@@ -155,6 +155,9 @@ function registerRouter(parentRouter) {
                 router.$totoros[i].$route = ctx;
                 router.$totoros[i].$create();
             }
+            if (router.hasOwnProperty('$redirect')) {
+                page.redirect(router.$redirect)
+            }
         });
         //注册路由
         page.apply(null, array);
@@ -162,9 +165,7 @@ function registerRouter(parentRouter) {
         if (router.hasOwnProperty('$children')) {
             registerRouter(router);
         }
-        if (router.hasOwnProperty('$redirect')) {
-            page.redirect(router.$redirect)
-        }
+
     }
 }
 
@@ -205,7 +206,7 @@ function initPage(routes, routerParent) {
             });
         }
         routerParent.$children.push(router);
-
+        console.log(path);
         //包含子路由则继续迭代
         if (route.hasOwnProperty('children')) {
             initPage(route.children, router);

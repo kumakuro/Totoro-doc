@@ -1,0 +1,12 @@
+.section {
+    font-size: 15px;
+    text-indent: 30px;
+    line-height: 1.7;
+    color: #5a5a5a;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border:1px solid #e4e4e4;
+    border-radius: 5px;
+    padding: 5px;
+    min-height: 150px;
+}

@@ -4,7 +4,7 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="12">
+          <list size="16">
             <item index="0" class="java.lang.String" itemvalue="router-view" />
             <item index="1" class="java.lang.String" itemvalue="turo-name" />
             <item index="2" class="java.lang.String" itemvalue="turo-on" />
@@ -17,6 +17,10 @@
             <item index="9" class="java.lang.String" itemvalue="props-id-num" />
             <item index="10" class="java.lang.String" itemvalue="toro-name" />
             <item index="11" class="java.lang.String" itemvalue="toro-on" />
+            <item index="12" class="java.lang.String" itemvalue="emit-change-tab" />
+            <item index="13" class="java.lang.String" itemvalue="props-tab-array" />
+            <item index="14" class="java.lang.String" itemvalue="toro-link" />
+            <item index="15" class="java.lang.String" itemvalue="active-class" />
           </list>
         </value>
       </option>

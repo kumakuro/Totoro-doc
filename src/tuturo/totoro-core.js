@@ -82,6 +82,23 @@ function Totoro(opt) {
         this.$props = checkProps(this.$props, props, this.$name);
         this.$emitMethodsMap = getEmitMethodMap(refSlot);
         render(refSlot, this);
+        let linkElements = Array.from(this.$el.querySelectorAll('[toro-link]'));
+        for (let i = 0, length = linkElements.length; i < length; i++) {
+            let link = linkElements[i];
+            let path = link.getAttribute('toro-link');
+            let currentPath = window.location
+
+            link.setAttribute('href', path);
+            let activeClass = link.getAttribute('active-class');
+            if (currentPath === path) {
+                let currentClass = link.getAttribute('class');
+                if (currentClass === null) {
+                    link.setAttribute('class', activeClass);
+                } else {
+                    link.setAttribute('class', currentClass + ' ' + activeClass);
+                }
+            }
+        }
 
         if (this.$children.length !== 0) {
             for (let i = 0, length = this.$children.length; i < length; i++) {

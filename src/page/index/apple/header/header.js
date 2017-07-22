@@ -7,9 +7,9 @@ export default {
     template: template,
     props: {},
     data: {
-        navItems: ['开发起源', '基础教程', 'API'],
+        navItems: ['开发起源', '基础教程', 'API','组件库'],
         selectItem: 0,
-        title:'TotoroFrame'
+        title:'Totoro Frame'
     },
     methods: {
         changeNavItem: function (idx) {
@@ -25,6 +25,9 @@ export default {
                     break;
                 case 2:
                     this.$router('/api');
+                    break;
+                case 3:
+                    this.$router('/library');
                     break;
             }
         }
