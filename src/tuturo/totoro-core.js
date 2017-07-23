@@ -35,7 +35,6 @@ function Totoro(opt) {
     this.$children = [];
     this.$router = page;
     this.$route = {};
-    this.$routeSlot = {};
     this.$routerObject = opt.routerObject;
 
     this.$created = opt.created;
@@ -82,24 +81,6 @@ function Totoro(opt) {
         this.$props = checkProps(this.$props, props, this.$name);
         this.$emitMethodsMap = getEmitMethodMap(refSlot);
         render(refSlot, this);
-        let linkElements = Array.from(this.$el.querySelectorAll('[toro-link]'));
-        for (let i = 0, length = linkElements.length; i < length; i++) {
-            let link = linkElements[i];
-            let path = link.getAttribute('toro-link');
-            let currentPath = window.location
-
-            link.setAttribute('href', path);
-            let activeClass = link.getAttribute('active-class');
-            if (currentPath === path) {
-                let currentClass = link.getAttribute('class');
-                if (currentClass === null) {
-                    link.setAttribute('class', activeClass);
-                } else {
-                    link.setAttribute('class', currentClass + ' ' + activeClass);
-                }
-            }
-        }
-
         if (this.$children.length !== 0) {
             for (let i = 0, length = this.$children.length; i < length; i++) {
                 this.$children[i].$create();
@@ -169,21 +150,18 @@ function Totoro(opt) {
 /**
  * 渲染方法
  * @param refSlot
- * @param turo
+ * @param toro
  */
-function render(refSlot, turo) {
-    let newNode = getTotoroNode(turo.$template, turo.$data, turo.$style, turo.$props);
-    if (turo.$isRoute) {
-        newNode.setAttribute("router-view", turo.$routeName === undefined ? '' : turo.$routeName);
+function render(refSlot, toro) {
+    let newNode = getTotoroNode(toro.$template, toro.$data, toro.$style, toro.$props);
+    if (toro.$isRoute) {
+        newNode.setAttribute("router-view", toro.$routeName === undefined ? '' : toro.$routeName);
     } else {
-        newNode.setAttribute(turo.$name + '-index', turo.$slotIndex);
+        newNode.setAttribute(toro.$name + '-index', toro.$slotIndex);
     }
     refSlot.parentNode.replaceChild(newNode, refSlot);
-    turo.$el = newNode;
-    if (turo.$isRoute) {
-        turo.$routeSlot = newNode;
-    }
-    turo.$bindEvent();
+    toro.$el = newNode;
+    toro.$bindEvent();
 }
 
 /**
@@ -228,7 +206,7 @@ function getRouteSlotRef(routerObject, routeName) {
 }
 
 /**
- * 获取 Turo 的 Html 节点（模板渲染后转换好的节点对象）
+ * 获取 Toro 的 Html 节点（模板渲染后转换好的节点对象）
  * @param template
  * @param data
  * @param style
@@ -253,7 +231,6 @@ function getTotoroNode(template, data, style, props) {
  * @returns {{}}
  */
 function getPropsFromParentSlots(slotNode) {
-
     let attrArray = Array.from(slotNode.attributes);
     if (attrArray.length < 0) {
         //若节点不存在属性，则直接退出

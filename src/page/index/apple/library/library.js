@@ -13,19 +13,21 @@ export default {
     components: [tabView, timePick],
     data(){
         return {
-            tabArray: ['MainTab', 'TabOne', 'TabTwo']
+            tabArray: [{
+                title: 'MainTab',
+                href: '/library/main'
+            }, {
+                title: 'TabOne',
+                href: '/library/one'
+            }, {
+                title: 'TabTwo',
+                href: '/library/two'
+            }]
         }
     },
     methods: {
         changeTab: function (idx) {
-            switch (idx) {
-                case 0 :
-                    this.$router('/library/main');
-                    break;
-                case 1 :
-                    this.$router('/library/two');
-                    break;
-            }
+            console.log(idx);
         }
     },
 }

@@ -20,11 +20,5 @@ export default {
         }
     },
     methods: {
-        changeTab: function (idx) {
-            this.setData({
-                selectItem: idx
-            });
-            this.$emit('change', idx);
-        }
     },
 }

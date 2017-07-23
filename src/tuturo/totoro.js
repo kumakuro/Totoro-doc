@@ -88,7 +88,7 @@ function registerRouter(parentRouter) {
                             mounted: component.mounted,
                             beforeUpdate: component.beforeUpdate,
                             updated: component.updated,
-                            routerObject:router
+                            routerObject: router
                         });
                         toro.$isRoute = true;
                         toro.$routeSlot = router.$parent.$totoros[j].$el.querySelector("[router-view='" + key + "']");
@@ -122,10 +122,9 @@ function registerRouter(parentRouter) {
                     mounted: component.mounted,
                     beforeUpdate: component.beforeUpdate,
                     updated: component.updated,
-                    routerObject:router
+                    routerObject: router
                 });
                 toro.$isRoute = true;
-                toro.$routeSlot = el;
                 totoros.push(toro);
                 let childComponents = component.components;
                 if (childComponents !== undefined && childComponents.length > 0) {
@@ -146,22 +145,39 @@ function registerRouter(parentRouter) {
 
         //构建方法数组
         router.$pageActions.push.apply(router.$pageActions, parentRouter.$pageActions);
-
+        router.$pageActions.push(pageAction);
         //复制数组，防止路径混入下一次迭代
         let array = router.$pageActions.concat();
         array.unshift(router.$path);
-        array.push(function (ctx, next) {
-            for (let i = 0; i < router.$totoros.length; i++) {
-                router.$totoros[i].$route = ctx;
-                router.$totoros[i].$create();
+        array.push(function (ctx) {
+            let linkElements = Array.from(document.querySelectorAll('[toro-link]'));
+            for (let i = 0, length = linkElements.length; i < length; i++) {
+                let link = linkElements[i];
+                let path = link.getAttribute('toro-link');
+                if (link.hasAttribute('active-class')) {
+                    let currentPath = ctx.pathname;
+                    let activeClass = link.getAttribute('active-class');
+                    if (currentPath.indexOf(path) >= 0) {
+                        let currentClass = link.getAttribute('class');
+                        if (currentClass === null) {
+                            link.setAttribute('class', activeClass);
+                        } else {
+                            link.setAttribute('class', currentClass + ' ' + activeClass);
+                        }
+                    }
+                }
+                link.addEventListener('click', function (event) {
+                    page(path);
+                    event.preventDefault();
+                })
             }
-            if (router.hasOwnProperty('$redirect')) {
-                page.redirect(router.$redirect)
+            if (router.$redirect !== undefined) {
+                page.redirect(router.$redirect);
             }
         });
         //注册路由
         page.apply(null, array);
-        router.$pageActions.push(pageAction);
+
         if (router.hasOwnProperty('$children')) {
             registerRouter(router);
         }
@@ -206,7 +222,6 @@ function initPage(routes, routerParent) {
             });
         }
         routerParent.$children.push(router);
-        console.log(path);
         //包含子路由则继续迭代
         if (route.hasOwnProperty('children')) {
             initPage(route.children, router);

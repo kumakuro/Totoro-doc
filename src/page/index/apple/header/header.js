@@ -7,29 +7,23 @@ export default {
     template: template,
     props: {},
     data: {
-        navItems: ['开发起源', '基础教程', 'API','组件库'],
+        navItems: [{
+            title: '开发起源',
+            href: '/story'
+        }, {
+            title: '基础教程',
+            href: '/base'
+        }, {
+            title: 'API',
+            href: '/api'
+        }, {
+            title: '组件库',
+            href: '/library'
+        }],
         selectItem: 0,
-        title:'Totoro Frame'
+        title: 'Totoro Frame'
     },
     methods: {
-        changeNavItem: function (idx) {
-            this.setData({
-                selectItem: idx
-            });
-            switch (idx) {
-                case 0:
-                    this.$router('/story');
-                    break;
-                case 1:
-                    this.$router('/base');
-                    break;
-                case 2:
-                    this.$router('/api');
-                    break;
-                case 3:
-                    this.$router('/library');
-                    break;
-            }
-        }
+
     }
 }

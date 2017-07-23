@@ -35,14 +35,6 @@
     float: left;
 }
 
-.icon-totoro:after {
-    content: '\e725';
-}
-
-.icon-totoro {
-    color: #666;
-    font-size: 25px;
-}
 
 .banner-icon {
     display: inline-block;

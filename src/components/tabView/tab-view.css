@@ -17,13 +17,12 @@
 }
 
 .tab-group > li {
-    float: left;
 }
 
 .tab-group > li > a {
-    line-height: 40px;
-    min-width: 90px;
+    float: left;
     padding: 10px 15px;
+    min-width: 90px;
     margin-left: -1px;
     border-top: 1px solid #e4e4e4;
     border-right: 1px solid #e4e4e4;
@@ -31,6 +30,7 @@
     background-color: #f6f6f6;
     color: #969696;
     cursor: pointer;
+    text-align: center;
 }
 
 .tab-group > li > a.active {

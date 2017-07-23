@@ -1,11 +1,13 @@
 <div class="{{style['tab-view']}}">
     <ul class="{{style['tab-group']}}">
         {{each props.tabArray tab idx}}
-        <li><a class="{{ data.selectItem === idx ? style.active : ''}}"
-               toro-on="click|changeTab|{{idx}}">{{tab}}</a></li>
+        <li>
+            <a toro-link="{{tab.href}}" active-class="{{style.active}}">{{tab.title}}</a>
+        </li>
         {{/each}}
         <li class="{{style.more}}">
-            <a toro-link="/library/two" active-class="{{style.active}}">More<span class="icon-font {{style['icon-right']}}"></span>
+            <a toro-link="/library/two" active-class="{{style.active}}">
+                More<span class="icon-font {{style['icon-right']}}"></span>
             </a>
         </li>
     </ul>

@@ -1,13 +1,13 @@
 <div class="{{ style.nav }}">
     <div class="{{ style.banner }}">
         <div class="{{ style['banner-icon'] }}">
-            <span class="icon-font {{ style['icon-totoro'] }}"></span>
+            <span class="icon-font icon-totoro"></span>
         </div>
         <span class="{{style.title}}">{{data.title}}</span>
     </div>
     <ul class="{{ style['nav-item'] }}">
         {{ each data.navItems navItem idx}}
-        <li class="{{ idx === data.selectItem ? style.active :''}}" toro-on="click|changeNavItem|{{ idx }}">{{ navItem }}</li>
+        <li toro-link="{{navItem.href}}" active-class="{{style.active}}">{{ navItem.title }}</li>
         {{ /each }}
     </ul>
 </div>

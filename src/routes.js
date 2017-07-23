@@ -40,7 +40,7 @@ export default {
                 path: 'main',
                 components: {tabContent: mainTab}
             }, {
-                path: 'two',
+                path: 'one',
                 components: {tabContent: tabTwo}
             }]
         }]
