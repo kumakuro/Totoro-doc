@@ -54,7 +54,7 @@ module.exports = {
             sourceMap: false
         }),
         new openBrowserPlugin({
-            url: 'http://localhost:8081'
+            url: 'http://localhost:8080'
         }),
     ],
     devServer: {
