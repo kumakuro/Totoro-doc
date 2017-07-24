@@ -11,6 +11,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
+        publicPath: '/',
         path: path.resolve(__dirname, 'dist')
     },
     module: {
@@ -36,7 +37,11 @@ module.exports = {
             }, {
                 test: /\.html$/,
                 loader: "art-template-loader",
-            }]
+            }, {
+                test: /\.(png|jpg|gif)$/,
+                loader: 'url-loader?limit=8192&name=images/[name].[ext]?[hash:8]',
+            }
+        ]
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({

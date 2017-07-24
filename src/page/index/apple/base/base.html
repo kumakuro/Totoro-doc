@@ -25,7 +25,7 @@
         JS 语法。
     </p>
     <p class="section">
-        Totoro 的核心是我们自主开发的，但在页面渲染、路由及网络请求使用的是第三方的库（当然这些库也是兼容<span class="text-blue">IE8</span>的），如下：
+        Totoro 的核心是我们自主开发的，但在页面渲染、路由及网络请求使用的是第三方的库（当然这些库也是兼容<span class="text-blue">IE8</span>的），如下（相关 API 链接已附上）：
     </p>
     <ul class="{{style.list}}">
         {{each data.externalLibraries library}}
@@ -51,9 +51,95 @@
         <div class="{{style['cascade-parent']}}">
             Component
         </div>
-        <div class="{{style['cascade-children']}}">Component.html</div>
-        <div class="{{style['cascade-children']}}">Component.css</div>
-        <div class="{{style['cascade-children']}}">Component.js</div>
+        <div class="{{style['cascade-children']}}">component.html</div>
+        <div class="{{style['cascade-children']}}">component.css</div>
+        <div class="{{style['cascade-children']}}">component.js</div>
     </div>
+    <p class="section">
+        首先我们看一下 JavaScript 文件的基础构成：
+    </p>
+    <div class="code">
+        <pre>
+import style from "./tab-view.css";
+import template from "./tab-view.html";
 
+export default {
+    name: 'tabView',
+    style: style,
+    template: template,
+    props: {
+        tabArray: {
+            type: Array,
+            required: true
+        }
+    },
+    data(){
+        return {
+            selectItem: 0,
+        }
+    },
+    methods: {
+    },
+}
+        </pre>
+    </div>
+    <p class="section">
+        我们先简单的描述一下每个属性的作用，稍后会有代码展示来为大家显示使用效果。
+    </p>
+    <p class="section">
+        每个 js 文件的开头，都必须要导入组件的 css 文件及 html 模板，并且在内部定义<span class="text-blue">style</span>和<span class="text-blue">template</span>参数来接收对应的对象。我们的
+        css 文件使用了 webpack 的 css-loader、css-module 功能，html 了文件则是通过 art-template 库提供的
+        art-template-loader模板加载器进行加载，然而这些加载及渲染工作，均已在框架中实现，我们真正要做的，只是在这里定义它们。
+    </p>
+    <p class="section">
+        每个组件都需要定义一个<span class="text-blue">name</span>属性，此属性是一个字符串，且必须采用<span class="text-red">驼峰命名法</span>，这个属性的作用是给组件取一个名字，这个名字主要用在组件嵌套上。
+    </p>
+    <p class="section">
+        <span class="text-blue">props</span>属性，主要的作用是当组件需要从外部传入参数时，比如从父组件中获取，通过 props 来接收，props 只是一个普通的对象。我们通过 DOM 自定义属性
+        props-* 来传入这个参数。
+    </p>
+    <p class="section">
+        <span class="text-blue">data</span>属性，主要的作用是用来定义组件内部自身的数据，这个数据的特点就是数据源不从其他组件中来，可能是自身定义的一些数据，也可能来自于 http
+        后端请求返回。这个属性可以是一个对象，也可以是一个方法，并且方法内部返回一个对象，这两者是有区别的，主要的区别：如果你的组件在使用过程中，只会被使用一次，在整个项目中它都是不可复用的，那可以使用对象来定义 data
+        ，但是如果它存在复用的情况，则一般情况下都是用方法返回，这样每次返回的数据对象都是一个新对象，他们的作用域互相独立，不会相互干扰。
+    </p>
+    <p class="section">
+        <span class="text-blue">methods</span>属性，这个对象是用来定义一些方法，这些方法可以通过在 DOM 上设置自定义的属性，来设置 DOM 节点的事件绑定。
+    </p>
+    <p class="section">
+        我们来看一下对应的 HTML 模板文件是如何编写的。
+    </p>
+    <div class="code">
+        <pre>
+&lt;div class=&quot;&#123;&#123;style[&#x27;tab-view&#x27;]&#125;&#125;&quot;&gt;
+    &lt;ul class=&quot;&#123;&#123;style[&#x27;tab-group&#x27;]&#125;&#125;&quot;&gt;
+        &#123;&#123;each props.tabArray tab idx&#125;&#125;
+        &lt;li&gt;
+            &lt;a toro-link=&quot;&#123;&#123;tab.href&#125;&#125;&quot; active-class=&quot;&#123;&#123;style.active&#125;&#125;&quot;&gt;&#123;&#123;tab.title&#125;&#125;&lt;/a&gt;
+        &lt;/li&gt;
+        &#123;&#123;/each&#125;&#125;
+        &lt;li class=&quot;&#123;&#123;style.more&#125;&#125;&quot;&gt;
+            &lt;a toro-link=&quot;/library/two&quot; active-class=&quot;&#123;&#123;style.active&#125;&#125;&quot;&gt;
+                More&lt;span class=&quot;icon-font &#123;&#123;style[&#x27;icon-right&#x27;]&#125;&#125;&quot;&gt;&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+        </pre>
+    </div>
+    <p class="section">
+        基础的语法可以直接查看 art-template 的 API，我们只解释框架的特定变量。首先可以看到 CSS 样式已经被包装成一个对象<span class="text-green">style</span>，可以直接在模板文件中引用，<span
+            class="text-red">类名即为变量名</span>，CSS 的类名往往都是按照<span class="text-red">kebabCase</span>明明规范来写，但是 js
+        变量不允许出现连字符"-"，所以我们可以换一种获取属性的方式，即类似数组的方式来获取对应 js的变量。
+    </p>
+    <p class="section">
+        接下来我们可以看到在某些 DOM 节点上存在的特定属性，这些属性是用于定义框架的一些特性 API，我们称为<span class="text-blue">指令</span>。目前框架现有的指令如下：
+    </p>
+    <ul class="{{style.list}}">
+        {{each data.directives directive}}
+        <li>
+            <span class="{{style.title}}">{{directive.directive}}</span><span>{{directive.info}}</span>
+        </li>
+        {{/each}}
+    </ul>
 </div>

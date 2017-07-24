@@ -12,13 +12,13 @@ export default {
         tabArray: {
             type: Array,
             required: true
-        }
+        },
+        more: ''
     },
-    data(){
+    data() {
         return {
             selectItem: 0,
         }
     },
-    methods: {
-    },
+    methods: {},
 }

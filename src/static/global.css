@@ -66,3 +66,18 @@
     font-weight: bold;
     margin: 0 5px;
 }
+
+:global(.code) {
+    border: 1px solid #e4e4e4;
+    border-radius: 5px;
+    background-color: #efefef;
+}
+
+:global(.code pre) {
+    font-size: 15px;
+    color: #888888;
+    padding: 15px;
+    overflow: auto;
+    max-height: 350px;
+    line-height: 1.5;
+}
