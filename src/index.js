@@ -12,7 +12,8 @@ import "html5-history-api";
 import Totoro from './tuturo/totoro';
 import routes from './routes';
 import index from "./page/index/index";
-import './static/global.css'
+import './static/global.css';
+import './static/base-global.css'
 
 Totoro({
     el: 'app',
