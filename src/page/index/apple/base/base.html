@@ -1,3 +1,59 @@
-<div>
-    base
+<div class="container">
+    <h1 class="h1 page-header">
+        {{data.baseTitle}}
+    </h1>
+    <h2 class="h2">
+        起步
+    </h2>
+    <p class="section">
+        Totoro 需要<span class="text-green">Node.js</span>的构建环境，使用<span class="text-blue">Webpack</span>作为构建工具，并且需要引入一些兼容性工具，来修补对<span
+            class="text-blue">IE8</span>的兼容问题。
+    </p>
+    <p class="section">
+        就目前而言，我们已经引入的第三方兼容工具有如下：
+    </p>
+    <ul class="{{style.list}}">
+        {{each data.polyfills poly idx}}
+        <li>
+            <span>{{poly}}</span>
+        </li>
+        {{/each}}
+    </ul>
+    <p class="section">
+        这些兼容工具，需要在<span class="text-blue">Webpack</span>的 entry 入口引入，并按照如上顺序。同时我们也在开发环境中使用了 babel 的相关转换工具，在项目打包时将<span
+            class="text-red">ES6</span>的语法转换到<span class="text-red">ES5</span>甚至是<span class="text-red">ES3</span>(IE8）,所以大家在开发环境中，可以放心大胆的使用最新的
+        JS 语法。
+    </p>
+    <p class="section">
+        Totoro 的核心是我们自主开发的，但在页面渲染、路由及网络请求使用的是第三方的库（当然这些库也是兼容<span class="text-blue">IE8</span>的），如下：
+    </p>
+    <ul class="{{style.list}}">
+        {{each data.externalLibraries library}}
+        <li>
+            <a href="{{library.url}}" target="_blank">{{library.name}}</a>
+        </li>
+        {{/each}}
+    </ul>
+    <h2 class="h2">
+        面向组件
+    </h2>
+    <p class="section">
+        框架的开发思想，是以面向组件的思想来设计。项目在基础的 MVC 模式下，对页面的构建以组件方式来实现，让复杂的单页项目，在工程管理上可以更加清晰，代码的复用不局限于<span class="text-red">JavaScript</span>文件，而是扩大到<span
+            class="text-green">html/css</span>范围，最终达到提高开发效率的根本目的。
+    </p>
+    <h2 class="h2">
+        组件的构成
+    </h2>
+    <p class="section">
+        基本上一个组件的构成主要包括三个文件：JavaScript、Html、Css，这三个文件分别用于控制、结构、渲染，好比人的神经、骨骼与皮肤:
+    </p>
+    <div class="{{style.cascade}}">
+        <div class="{{style['cascade-parent']}}">
+            Component
+        </div>
+        <div class="{{style['cascade-children']}}">Component.html</div>
+        <div class="{{style['cascade-children']}}">Component.css</div>
+        <div class="{{style['cascade-children']}}">Component.js</div>
+    </div>
+
 </div>

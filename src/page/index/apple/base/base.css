@@ -1,0 +1,55 @@
+.list {
+    list-style: none;
+    padding: 0 30px;
+}
+
+.list > li {
+    padding: 5px 0;
+}
+
+.list > li:before {
+    content: '▶';
+    font-size: 12px;
+    margin-right: 10px;
+    color: #9b9b9b;
+}
+
+.list > li > a {
+    color: #0591e6;
+}
+
+.list > li > a:hover {
+    color: #0057e6;
+    text-decoration: solid;
+}
+
+.cascade {
+    margin-left: 30px;
+}
+
+.cascade-parent {
+    font-weight: bold;
+}
+
+.cascade-children,
+.cascade-parent {
+    font-size: 16px;
+    padding: 5px 0;
+}
+
+.cascade-parent:before {
+    content: '┬';
+    font-weight: bold;
+}
+
+.cascade .cascade-children:before {
+    content: '├';
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.cascade .cascade-children:last-child:before {
+    content: '└';
+    font-weight: bold;
+    margin-right: 5px;
+}
