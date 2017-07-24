@@ -8,6 +8,7 @@ import api from './page/index/apple/api/api'
 import searchButton from './components/button/search-button'
 import content from './components/content/content'
 import library from './page/index/apple/library/library'
+import style from './page/index/apple/style/style'
 import mainTab from './page/index/apple/library/mainTab/main-tab'
 import tabTwo from './page/index/apple/library/tabTwo/tab-two'
 
@@ -32,6 +33,9 @@ export default {
         }, {
             path: 'api',
             component: api
+        }, {
+            path: 'style',
+            component: style
         }, {
             path: 'library',
             component: library,

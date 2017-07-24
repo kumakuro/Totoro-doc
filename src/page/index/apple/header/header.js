@@ -17,13 +17,14 @@ export default {
             title: 'API',
             href: '/api'
         }, {
+            title: '全局样式',
+            href: '/style'
+        }, {
             title: '组件库',
             href: '/library'
         }],
         selectItem: 0,
         title: 'Totoro Frame'
     },
-    methods: {
-
-    }
+    methods: {}
 }
