@@ -473,20 +473,19 @@ h3 {
 }
 
 @font-face {
-    /* project id 359550 */
-    font-family: 'iconfont';
-    src: url(//at.alicdn.com/t/font_6xmv6w2aaupaatt9.eot);
-    src: url(//at.alicdn.com/t/font_6xmv6w2aaupaatt9.eot?#iefix) format('embedded-opentype'),
-    url(//at.alicdn.com/t/font_6xmv6w2aaupaatt9.woff) format('woff'),
-    url(//at.alicdn.com/t/font_6xmv6w2aaupaatt9.ttf) format('truetype'),
-    url(//at.alicdn.com/t/font_6xmv6w2aaupaatt9.svg#iconfont) format('svg');
+    font-family: 'torodoc';  /* project id 359550 */
+    src: url('//at.alicdn.com/t/font_907fwudlbc1munmi.eot');
+    src: url('//at.alicdn.com/t/font_907fwudlbc1munmi.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_907fwudlbc1munmi.woff') format('woff'),
+    url('//at.alicdn.com/t/font_907fwudlbc1munmi.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_907fwudlbc1munmi.svg#torodoc') format('svg');
 }
 
 
-.icon-font{
+.torodoc-font{
     position: relative;
     display: inline-block;
-    font-family: 'iconfont';
+    font-family: 'torodoc';
     font-style: normal;
     font-weight: 400;
     line-height: 1;

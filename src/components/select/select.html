@@ -1,6 +1,9 @@
 <div>
-    <div class="{{style['select-input']}}" toro-on="click|showOptions|{{data.isVisibility}}">
-        {{data.option.text}}
+    <div class="{{style['select-input']}}">
+        <div class="{{style.input}}" >
+            {{props.option.text}}
+        </div>
+        <div class="{{style['input-btn']}}" toro-on="click|showOptions|{{data.isVisibility}}">▼</div>
     </div>
     <div class="{{style['select-options']}}">
         <ul class="{{ data.isVisibility ? '' : style.hidden}} {{style['options-list']}}">

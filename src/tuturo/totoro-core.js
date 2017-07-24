@@ -135,6 +135,9 @@ function Totoro(opt) {
                 this.$children[i].$create();
             }
         }
+        if (Array.from(this.$el.querySelectorAll('[router-view]')).length > 0) {
+            page(window.location.pathname);
+        }
         if (this.$updated !== undefined && 'function' === typeof this.$updated) {
             this.$updated();
         }

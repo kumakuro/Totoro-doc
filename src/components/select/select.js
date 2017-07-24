@@ -10,17 +10,15 @@ export default {
         options: {
             type: Array,
             required: true
+        },
+        option: {
+            type: Object,
+            required: true
         }
     },
     data() {
         return {
-            id: 'select',
-
             isVisibility: false,
-            option: {
-                text: '',
-                value: ''
-            }
         }
     },
     methods: {
