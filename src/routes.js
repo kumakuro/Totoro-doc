@@ -5,8 +5,6 @@ import apple from './page/index/apple/apple'
 import story from './page/index/apple/story/story'
 import base from './page/index/apple/base/base'
 import api from './page/index/apple/api/api'
-import searchButton from './components/button/search-button'
-import content from './components/content/content'
 import library from './page/index/apple/library/library'
 import style from './page/index/apple/style/style'
 import mainTab from './page/index/apple/library/mainTab/main-tab'
@@ -20,13 +18,6 @@ export default {
         children: [{
             path: 'story',
             component: story,
-            children: [{
-                path: 'button',
-                components: {
-                    searchButton: searchButton,
-                    content: content
-                }
-            }]
         }, {
             path: 'base',
             component: base

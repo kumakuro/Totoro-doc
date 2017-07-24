@@ -128,7 +128,7 @@ function Totoro(opt) {
             this.$beforeUpdate();
         }
         Object.assign(this.$data, newData);
-        let refSlot = this.$isRoute ? getRouteSlotRef(this.$routeName) : getSlotRef(this.$parent, this.$name, this.$slotIndex);
+        let refSlot = this.$isRoute ? getRouteSlotRef(this.$routerObject, this.$routeName) : getSlotRef(this.$parent, this.$name, this.$slotIndex);
         render(refSlot, this);
         if (this.$children.length !== 0) {
             for (let i = 0, length = this.$children.length; i < length; i++) {

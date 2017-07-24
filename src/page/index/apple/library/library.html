@@ -3,7 +3,8 @@
         <div toro-name="tab-view" emit-change-tab="change" props-tab-array="{{data.tabArray}}"></div>
         <div router-view="tabContent"></div>
     </div>
+    <div toro-name="select" props-options="{{data.options}}" emit-select-fruit="select"></div>
 
-
+    <span>{{data.selectFruit.text}}</span>
     <div toro-name="time-pick"></div>
 </div>
