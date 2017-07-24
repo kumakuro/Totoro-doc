@@ -16,9 +16,6 @@
     clear: both;
 }
 
-.tab-group > li {
-}
-
 .tab-group > li > a {
     float: left;
     padding: 10px 15px;
