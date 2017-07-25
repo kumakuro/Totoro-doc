@@ -1,4 +1,4 @@
-<div class="container">
+<p class="container">
     <h1 class="h1 page-header">全局样式</h1>
     <p class=""section>
        这里是对所有的不可拆分割的基本样式做一个罗列，以便参考。
@@ -6,19 +6,21 @@
 
     <h2 class="h2">字体</h2>
     <p class="section">
-    <div class="{{style['lay-vertical']}} font-title">h1 文章大标题</div>
-    <div class="{{style['lay-vertical']}} font-bread">h2 面包屑页面标题</div>
-    <div class="{{style['lay-vertical']}} font-sub-first">h3 内容一级标题</div>
-    <div class="{{style['lay-vertical']}} font-sub-second">h4 内容二级标题</div>
-    <div class="{{style['lay-vertical']}} font-detail">h5 文章详情正文</div>
-    <div class="{{style['lay-vertical']}} font-list-content">h6 列表内容</div>
-    <div class="{{style['lay-vertical']}} font-list-head">h7 列表标题</div>
-    <div class="{{style['lay-vertical']}} font-minor">h8 次要文字、辅助性文字</div>
-    <div class="{{style['lay-vertical']}}">
-        <input type="text" placeholder="h9 输入框提示文字" name="" value="">
-    </div>
-    <div class="{{style['lay-vertical']}} font-link">h10 链接</div>
-    <br>
+        <div class="{{style['lay-vertical']}} font-title">h1 文章大标题</div>
+        <div class="{{style['lay-vertical']}} font-bread">h2 面包屑页面标题</div>
+        <div class="{{style['lay-vertical']}} font-sub-first">h3 内容一级标题</div>
+        <div class="{{style['lay-vertical']}} font-sub-second">h4 内容二级标题</div>
+        <div class="{{style['lay-vertical']}} font-detail">h5 文章详情正文</div>
+        <div class="{{style['lay-vertical']}} font-list-content">h6 列表内容</div>
+        <div class="{{style['lay-vertical']}} font-list-head">h7 列表标题</div>
+        <div class="{{style['lay-vertical']}} font-minor">h8 次要文字、辅助性文字</div>
+        <div class="{{style['lay-vertical']}}">
+            <input type="text" placeholder="h9 输入框提示文字" name="" value=""/>
+        </div>
+        <div class="{{style['lay-vertical']}} font-link">h10 链接</div>
+        <br/>
+
+        <div class="code"><pre>{{data.text.content}}</pre></div>
     </p>
 
     <h2 class="h2">段落</h2>
@@ -48,9 +50,9 @@
         <div class="{{style['lay-horizontal']}} text-error">文字标签</div>
         <div class="{{style['lay-horizontal']}} text-forbid">文字标签</div>
 
-        <div class="code"><pre>{{data.textLabel.content}}</pre></div>
-
         <div class="clear"></div><br/>
+
+        <div class="code"><pre>{{data.textLabel.content}}</pre></div>
 
         <div class="{{style['lay-horizontal']}} font-sub-first">2-label-small标签</div>
         <div class="{{style['lay-horizontal']}} label-small label-small-normal">完成</div>
@@ -61,12 +63,16 @@
 
         <div class="clear"></div><br/>
 
+        <div class="code"><pre>{{data.labelSmall.content}}</pre></div>
+
         <div class="{{style['lay-horizontal']}} font-sub-first">3-label-medium标签</div>
         <div class="{{style['lay-horizontal']}} label-medium label-medium-normal">实心标签</div>
         <div class="{{style['lay-horizontal']}} label-medium label-medium-warn">实心标签</div>
         <div class="{{style['lay-horizontal']}} label-medium label-medium-finish">实心标签</div>
         <div class="{{style['lay-horizontal']}} label-medium label-medium-error">实心标签</div>
         <div class="{{style['lay-horizontal']}} label-medium label-medium-forbid">实心标签</div>
+
+        <div class="code"><pre>{{data.labelMedium.content}}</pre></div>
 
         <div class="clear"></div><br/>
 
@@ -77,6 +83,8 @@
         <div class="{{style['lay-horizontal']}} label-large label-large-error">核稿撤回</div>
         <div class="{{style['lay-horizontal']}} label-large label-large-forbid">弃稿</div>
 
+        <div class="code"><pre>{{data.labelLarge.content}}</pre></div>
+
         <div class="clear"></div><br/>
 
         <div class="{{style['lay-horizontal']}} font-sub-first">5-单位标签</div>
@@ -84,6 +92,8 @@
             <div class="item-left">黄轩</div>
             <div class="item-right logo-delete"></div>
         </div>
+
+        <div class="code"><pre>{{data.labelChoose.content}}</pre></div>
 
         <div class="clear"></div><br/>
     </p>
