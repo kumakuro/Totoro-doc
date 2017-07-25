@@ -42,7 +42,8 @@ function Totoro(opt) {
     this.$mounted = opt.mounted;
     this.$beforeUpdate = opt.beforeUpdate;
     this.$updated = opt.updated;
-    this.$emitMethodsMap = {};//仅在生命周期 mounted 后才可用
+    //仅在生命周期 mounted 后才可用
+    this.$emitMethodsMap = {};
 
     /**
      * 触发父节点方法
@@ -66,6 +67,9 @@ function Totoro(opt) {
         }
     };
 
+    /**
+     * 组件创建
+     */
     this.$create = function () {
         //生命周期函数：页面渲染前
         if (this.$beforeMount !== undefined && 'function' === typeof this.$beforeMount) {
@@ -117,7 +121,32 @@ function Totoro(opt) {
                 $childEle.removeAttribute('toro-on');
             }
         }
+
+        let els = Array.from(this.$el.querySelectorAll('[toro-model]'));
+        console.log(els);
+        if (els.length !== 0) {
+            for (let i = 0; i < els.length; i++) {
+                let inputElement = els[i];
+                if ('checkbox' === inputElement.type) {
+                    inputElement.addEventListener("change", function (event) {
+                        if (event.target.checked) {
+                            let data = event.target.name;
+                            if ($this.$data.hasOwnProperty(data)) {
+                                
+                            }
+                            console.log(event.target.name);
+                        } else {
+                            console.log('noCheck')
+                        }
+                    });
+                } else if ('text' === inputElement.type) {
+
+                }
+
+            }
+        }
     };
+
 
     /**
      * 更新数据
@@ -128,15 +157,16 @@ function Totoro(opt) {
             this.$beforeUpdate();
         }
         Object.assign(this.$data, newData);
-        let refSlot = this.$isRoute ? getRouteSlotRef(this.$routerObject, this.$routeName) : getSlotRef(this.$parent, this.$name, this.$slotIndex);
-        render(refSlot, this);
-        if (this.$children.length !== 0) {
-            for (let i = 0, length = this.$children.length; i < length; i++) {
-                this.$children[i].$create();
-            }
-        }
         if (Array.from(this.$el.querySelectorAll('[router-view]')).length > 0) {
-            page(window.location.pathname);
+            this.$router(window.location.pathname);
+        } else {
+            let refSlot = this.$isRoute ? getRouteSlotRef(this.$routerObject, this.$routeName) : getSlotRef(this.$parent, this.$name, this.$slotIndex);
+            render(refSlot, this);
+            if (this.$children.length !== 0) {
+                for (let i = 0, length = this.$children.length; i < length; i++) {
+                    this.$children[i].$create();
+                }
+            }
         }
         if (this.$updated !== undefined && 'function' === typeof this.$updated) {
             this.$updated();
