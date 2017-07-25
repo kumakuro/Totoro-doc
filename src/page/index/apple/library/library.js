@@ -53,7 +53,7 @@ export default {
         selectFruit: function (idx) {
             console.log();
             let data = this.$data.options[idx];
-            this.setData({
+            this.$setData({
                 selectFruit: data
             })
         }

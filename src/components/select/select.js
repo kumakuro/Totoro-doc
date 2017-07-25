@@ -19,11 +19,13 @@ export default {
     data() {
         return {
             isVisibility: false,
+            sex: [],
+            text:''
         }
     },
     methods: {
         showOptions: function (isVisibility) {
-            this.setData({
+            this.$setData({
                 isVisibility: !isVisibility
             })
         },

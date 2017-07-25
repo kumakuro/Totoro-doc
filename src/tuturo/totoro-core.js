@@ -2,6 +2,7 @@
  * Created by wuxinzhe on 2017/7/13.
  */
 import page from "page";
+import utils from './totoro-util';
 
 export default Totoro;
 
@@ -44,6 +45,8 @@ function Totoro(opt) {
     this.$updated = opt.updated;
     //仅在生命周期 mounted 后才可用
     this.$emitMethodsMap = {};
+
+    this.$modelChangePropsName = '';
 
     /**
      * 触发父节点方法
@@ -121,38 +124,14 @@ function Totoro(opt) {
                 $childEle.removeAttribute('toro-on');
             }
         }
-
-        let els = Array.from(this.$el.querySelectorAll('[toro-model]'));
-        console.log(els);
-        if (els.length !== 0) {
-            for (let i = 0; i < els.length; i++) {
-                let inputElement = els[i];
-                if ('checkbox' === inputElement.type) {
-                    inputElement.addEventListener("change", function (event) {
-                        if (event.target.checked) {
-                            let data = event.target.name;
-                            if ($this.$data.hasOwnProperty(data)) {
-                                
-                            }
-                            console.log(event.target.name);
-                        } else {
-                            console.log('noCheck')
-                        }
-                    });
-                } else if ('text' === inputElement.type) {
-
-                }
-
-            }
-        }
+        this.$modelInit(this.$el);
     };
-
 
     /**
      * 更新数据
      * @param newData
      */
-    this.setData = function (newData) {
+    this.$setData = function (newData) {
         if (this.$beforeUpdate !== undefined && 'function' === typeof this.$beforeUpdate) {
             this.$beforeUpdate();
         }
@@ -173,6 +152,89 @@ function Totoro(opt) {
         }
     };
 
+    /**
+     * 数据双向绑定初始化
+     * @param node
+     */
+    this.$modelInit = function (node) {
+        let $this = this;
+        let els = utils.getElementsByAttr(node, 'toro-model');
+        if (els.length !== 0) {
+            for (let i = 0; i < els.length; i++) {
+                let $input = els[i];
+                switch ($input.type) {
+                    case 'checkbox':
+                        $input.addEventListener("change", function (event) {
+                            let $checkbox = event.target;
+                            let propsName = $checkbox.getAttribute('toro-model');
+                            $this.$modelChangePropsName = propsName;
+                            let propsValue = $checkbox.value;
+                            if ($checkbox.checked) {
+                                if ($this.$data.hasOwnProperty(propsName)) {
+                                    let checkedArray = $this.$data[propsName].concat();
+                                    checkedArray.push(propsValue);
+                                    let obj = {};
+                                    obj[propsName] = checkedArray;
+                                    $this.$setData(obj);
+                                }
+                            } else {
+                                if ($this.$data.hasOwnProperty(propsName)) {
+                                    let checkedArray = $this.$data[propsName].concat();
+                                    utils.arrayRemoveValue(checkedArray, propsValue);
+                                    let obj = {};
+                                    obj[propsName] = checkedArray;
+                                    $this.$setData(obj);
+                                }
+                            }
+                        });
+                        break;
+                    case 'text':
+                    case 'number':
+                    case 'tel':
+                    case 'password':
+                        $input.addEventListener("blur", function (event) {
+                            let $input = event.target;
+                            let propsName = $input.getAttribute('toro-model');
+                            $this.$modelChangePropsName = propsName;
+                            if ($this.$data.hasOwnProperty(propsName)) {
+                                let obj = {};
+                                obj[propsName] = $input.value;
+                                $this.$setData(obj);
+                            }
+                        });
+                        break;
+                }
+
+            }
+        }
+    };
+
+    /**
+     * 双向数据绑定的节点绘制方法
+     * @param node
+     */
+    this.$modelRender = function (node) {
+        let $inputs = utils.getElementsByAttr(node, 'toro-model');
+        if ($inputs.length > 0) {
+            for (let i = 0; i < $inputs.length; i++) {
+                let $input = $inputs[i];
+                let propsName = $input.getAttribute('toro-model');
+                let data = this.$data[propsName];
+                switch ($input.type) {
+                    case 'checkbox':
+                        $input.checked = utils.arrayContains(data, $input.value);
+                        break;
+                    case 'text':
+                    case 'number':
+                    case 'tel':
+                    case 'password':
+                        $input.value = data;
+                        break;
+                }
+
+            }
+        }
+    };
     //生命周期函数：对象初始化之后
     if (this.$created !== undefined && 'function' === typeof this.$created) {
         this.$created();
@@ -193,6 +255,8 @@ function render(refSlot, toro) {
         newNode.setAttribute(toro.$name + '-index', toro.$slotIndex);
     }
     refSlot.parentNode.replaceChild(newNode, refSlot);
+    toro.$modelRender(newNode);
+    toro.$modelChangePropsName = '';
     toro.$el = newNode;
     toro.$bindEvent();
 }
