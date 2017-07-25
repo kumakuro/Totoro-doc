@@ -7,7 +7,7 @@
     url('//at.alicdn.com/t/font_lx3kve8t7l9xusor.svg#iconfont') format('svg');
 }
 
-:global(.icon-font) {
+:global(.font-logo) {
     position: relative;
     display: inline-block;
     font-family: 'iconfont';
@@ -18,13 +18,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-:global(.icon-font:after) {
-    content: '\e606';
-    cursor: pointer;
-    color: #cccccc;
-}
-
-:global(::-webkit-input-placeholder,:-moz-placeholder,::-moz-placeholder,:-ms-input-placeholder,input:-ms-input-placeholder,input::-webkit-input-placeholder) { /* WebKit browsers */
+:global(::-webkit-input-placeholder,:-moz-placeholder,::-moz-placeholder,:-ms-input-placeholder,input:-ms-input-placeholder,input::-webkit-input-placeholder) {
     font-size: 12px;
     color: #c7c7c7;
 }
@@ -184,6 +178,7 @@
     height: 32px;
     line-height: 32px;
     font-size: 14px;
+    border-radius: 4px;
     cursor: default;
     padding: 0px 20px;
     float: left;
@@ -222,9 +217,28 @@
     background-color: #fafafa;
     font-size: 12px;
     color: #585858;
-    padding: 0px 9px 0px 10px;
+    padding: 0px 0px 0px 10px;
     line-height: 27px;
     float: left;
+}
+
+:global(.item-left) {
+    width: 100%;
+    float: left;
+}
+
+:global(.item-right) {
+    width: 25px;
+    height: 100%;
+    padding: 0px 7px;
+    float: left;
+    margin-left: -25px;
+}
+
+:global(.font-logo .logo-delete:after) {
+    content: '\e606';
+    color: #cccccc;
+    cursor: pointer;
 }
 
 :global(.second-btn) {
