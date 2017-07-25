@@ -13,15 +13,21 @@ export default {
         },
         option: {
             type: Object,
-            required: true
+            required: false,
+            default() {
+                return {
+                    text: '苹果',
+                    value: '1'
+                }
+            }
         }
     },
     data() {
         return {
             isVisibility: false,
-            sex:'',
-            text:'',
-            textarea:''
+            sex: '',
+            text: '',
+            textarea: ''
         }
     },
     methods: {

@@ -240,6 +240,7 @@ function initTotoro($parent, component) {
 
     for (let i = 0; i < slots.length; i++) {
         let props = getPropsFromParentSlots(slots[i]);
+        props = checkProps(component.props, props, name);
         let data = 'function' === typeof component.data ? component.data() : component.data;
         let el = getComponentNode(component.template, data, component.style, props);
         let parent = $parent;
@@ -329,5 +330,18 @@ function getPropsFromParentSlots(slotNode) {
     return props;
 }
 
+function checkProps($props, props, $name) {
+    for (let key in $props) {
+        //required校验
+        if ($props.hasOwnProperty(key) && !props.hasOwnProperty(key) && $props[key].hasOwnProperty('required') && $props[key].required) {
+            throw new Error('组件[' + $name + ']的props属性：' + key + '为必传！，请检查配置');
+        }
+       
+        if ($props.hasOwnProperty(key) && !props.hasOwnProperty(key) && $props[key].hasOwnProperty('default')) {
+            props[key] = $props[key]['default']();
+        }
+    }
+    return props;
+}
 
 

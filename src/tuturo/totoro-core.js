@@ -257,8 +257,10 @@ function Totoro(opt) {
                             break;
                     }
                 } else {
-                    $input.value = data;
+
                 }
+
+
             }
         }
     };
@@ -383,20 +385,11 @@ function getPropsFromParentSlots(slotNode) {
 function checkProps($props, props, $name) {
     for (let key in $props) {
         //required校验
-        if ($props.hasOwnProperty(key) && !props.hasOwnProperty(key) && $props[key].hasOwnProperty('required')) {
+        if ($props.hasOwnProperty(key) && !props.hasOwnProperty(key) && $props[key].hasOwnProperty('required') && $props[key].required) {
             throw new Error('组件[' + $name + ']的props属性：' + key + '为必传！，请检查配置');
         }
-        //数据类型校验
-        if ($props.hasOwnProperty(key) && $props[key].hasOwnProperty('type')) {
-            let propsType = typeof props[key];
-            if ($props[key].type instanceof Array && $props[key].type.indexOf(propsType.toUpperCase()) < 0) {
-                throw new Error('组件[' + $name + ']的props属性：' + key + '的数据类型不应该为' + propsType)
-            } else if ($props[key].type.toLowerCase() !== propsType) {
-                throw new Error('组件[' + $name + ']的props属性：' + key + '的数据类型不应该为' + propsType)
-            }
-        }
-        if ($props.hasOwnProperty(key) && !props.hasOwnProperty(key) && $props[key].hasOwnProperty('default')) {
-            props[key] = $props[key]['default']();
+        if ($props.hasOwnProperty(key) && !props.hasOwnProperty(key)) {
+            props[key] = $props[key];
         }
     }
     return props;
