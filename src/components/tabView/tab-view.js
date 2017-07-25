@@ -10,7 +10,6 @@ export default {
     template: template,
     props: {
         tabArray: {
-            type: Array,
             required: true
         },
         more: ''

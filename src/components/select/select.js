@@ -8,11 +8,9 @@ export default {
     template: template,
     props: {
         options: {
-            type: Array,
             required: true
         },
         option: {
-            type: Object,
             required: false,
             default() {
                 return {
@@ -25,9 +23,6 @@ export default {
     data() {
         return {
             isVisibility: false,
-            sex: '',
-            text: '',
-            textarea: ''
         }
     },
     methods: {
