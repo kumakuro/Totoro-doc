@@ -46,8 +46,6 @@ function Totoro(opt) {
     //仅在生命周期 mounted 后才可用
     this.$emitMethodsMap = {};
 
-    this.$modelChangePropsName = '';
-
     /**
      * 触发父节点方法
      * @param eventName
@@ -159,52 +157,75 @@ function Totoro(opt) {
     this.$modelInit = function (node) {
         let $this = this;
         let els = utils.getElementsByAttr(node, 'toro-model');
+        console.log(els);
         if (els.length !== 0) {
             for (let i = 0; i < els.length; i++) {
                 let $input = els[i];
-                switch ($input.type) {
-                    case 'checkbox':
-                        $input.addEventListener("change", function (event) {
-                            let $checkbox = event.target;
-                            let propsName = $checkbox.getAttribute('toro-model');
-                            $this.$modelChangePropsName = propsName;
-                            let propsValue = $checkbox.value;
-                            if ($checkbox.checked) {
+                if ($input.tagName === 'INPUT') {
+                    switch ($input.type) {
+                        case 'checkbox':
+                            $input.addEventListener("change", function (event) {
+                                let $checkbox = event.target;
+                                let propsName = $checkbox.getAttribute('toro-model');
+                                let propsValue = $checkbox.value;
+                                if ($checkbox.checked) {
+                                    if ($this.$data.hasOwnProperty(propsName)) {
+                                        let checkedArray = $this.$data[propsName].concat();
+                                        checkedArray.push(propsValue);
+                                        let obj = {};
+                                        obj[propsName] = checkedArray;
+                                        $this.$setData(obj);
+                                    }
+                                } else {
+                                    if ($this.$data.hasOwnProperty(propsName)) {
+                                        let checkedArray = $this.$data[propsName].concat();
+                                        utils.arrayRemoveValue(checkedArray, propsValue);
+                                        let obj = {};
+                                        obj[propsName] = checkedArray;
+                                        $this.$setData(obj);
+                                    }
+                                }
+                            });
+                            break;
+                        case 'text':
+                        case 'number':
+                        case 'tel':
+                        case 'password':
+                            $input.addEventListener("blur", function (event) {
+                                let $input = event.target;
+                                let propsName = $input.getAttribute('toro-model');
                                 if ($this.$data.hasOwnProperty(propsName)) {
-                                    let checkedArray = $this.$data[propsName].concat();
-                                    checkedArray.push(propsValue);
                                     let obj = {};
-                                    obj[propsName] = checkedArray;
+                                    obj[propsName] = $input.value;
                                     $this.$setData(obj);
                                 }
-                            } else {
-                                if ($this.$data.hasOwnProperty(propsName)) {
-                                    let checkedArray = $this.$data[propsName].concat();
-                                    utils.arrayRemoveValue(checkedArray, propsValue);
-                                    let obj = {};
-                                    obj[propsName] = checkedArray;
-                                    $this.$setData(obj);
+                            });
+                            break;
+                        case 'radio':
+                            $input.addEventListener('click', function (event) {
+                                let $radio = event.target;
+                                let propsName = $radio.getAttribute('toro-model');
+                                if ($radio.checked) {
+                                    if ($this.$data.hasOwnProperty(propsName)) {
+                                        let obj = {};
+                                        obj[propsName] = $radio.value;
+                                        $this.$setData(obj);
+                                    }
                                 }
-                            }
-                        });
-                        break;
-                    case 'text':
-                    case 'number':
-                    case 'tel':
-                    case 'password':
-                        $input.addEventListener("blur", function (event) {
-                            let $input = event.target;
-                            let propsName = $input.getAttribute('toro-model');
-                            $this.$modelChangePropsName = propsName;
-                            if ($this.$data.hasOwnProperty(propsName)) {
-                                let obj = {};
-                                obj[propsName] = $input.value;
-                                $this.$setData(obj);
-                            }
-                        });
-                        break;
+                            });
+                            break;
+                    }
+                } else {
+                    $input.addEventListener("blur", function (event) {
+                        let $input = event.target;
+                        let propsName = $input.getAttribute('toro-model');
+                        if ($this.$data.hasOwnProperty(propsName)) {
+                            let obj = {};
+                            obj[propsName] = $input.value;
+                            $this.$setData(obj);
+                        }
+                    });
                 }
-
             }
         }
     };
@@ -220,18 +241,24 @@ function Totoro(opt) {
                 let $input = $inputs[i];
                 let propsName = $input.getAttribute('toro-model');
                 let data = this.$data[propsName];
-                switch ($input.type) {
-                    case 'checkbox':
-                        $input.checked = utils.arrayContains(data, $input.value);
-                        break;
-                    case 'text':
-                    case 'number':
-                    case 'tel':
-                    case 'password':
-                        $input.value = data;
-                        break;
+                if ($input.tagName === 'INPUT') {
+                    switch ($input.type) {
+                        case 'checkbox':
+                            $input.checked = utils.arrayContains(data, $input.value);
+                            break;
+                        case 'text':
+                        case 'number':
+                        case 'tel':
+                        case 'password':
+                            $input.value = data;
+                            break;
+                        case 'radio':
+                            $input.checked = data === $input.value;
+                            break;
+                    }
+                } else {
+                    $input.value = data;
                 }
-
             }
         }
     };
@@ -256,7 +283,6 @@ function render(refSlot, toro) {
     }
     refSlot.parentNode.replaceChild(newNode, refSlot);
     toro.$modelRender(newNode);
-    toro.$modelChangePropsName = '';
     toro.$el = newNode;
     toro.$bindEvent();
 }

@@ -19,8 +19,9 @@ export default {
     data() {
         return {
             isVisibility: false,
-            sex: [],
-            text:''
+            sex:'',
+            text:'',
+            textarea:''
         }
     },
     methods: {
