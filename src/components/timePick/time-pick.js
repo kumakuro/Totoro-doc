@@ -29,6 +29,21 @@ export default {
         highlighted: {
             type: Object
         },
+        inline: {
+            type: Boolean
+        },
+        initialView: {
+            type: String,
+            default() {
+                return 'day'
+            }
+        },
+        format: {
+            value: String,
+            default() {
+                return 'yyyy-MM-dd';
+            }
+        },
     },
 
     data() {
@@ -43,11 +58,18 @@ export default {
             blankDays: 0,
             days: [],
             currMonthName: '',
-            currYear: ''
+            currYear: {}
         }
     },
 
     computed: {
+        formattedValue(selectedDate) {
+            if (!selectedDate) {
+                return null
+            }
+            return DateUtils.formatDate(new Date(selectedDate), this.$props.format, DateLanguages.translations[this.$props.language])
+        },
+
         previousMonthDisabled(currDate) {
             if (typeof this.$props.disabled === 'undefined' || typeof this.$props.disabled.to === 'undefined' || !this.$props.disabled.to) {
                 return false
@@ -78,6 +100,102 @@ export default {
     },
 
     methods: {
+        showCalendar() {
+            if (this.isInline()) {
+                return false
+            }
+            if (this.isOpen()) {
+                return this.close()
+            }
+            switch (this.$props.initialView) {
+                case 'year':
+                    this.showYearCalendar();
+                    break;
+                case 'month':
+                    this.showMonthCalendar();
+                    break;
+                default:
+                    this.showDayCalendar();
+                    break;
+            }
+        },
+        selectDate(day) {
+            if (day.isDisabled) {
+                return false
+            }
+            this.setDate(day.timestamp);
+            if (this.isInline()) {
+                return this.showDayCalendar()
+            }
+            this.close()
+        },
+        isOpen() {
+            return this.$data.showDayView || this.$data.showMonthView || this.$data.showYearView
+        },
+        isInline() {
+            return typeof this.$props.inline !== 'undefined' && this.$props.inline
+        },
+        setDate(timestamp) {
+            let selectedDate = new Date(timestamp);
+            let currDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1).getTime();
+            this.$setData({
+                selectedDate: selectedDate,
+                currDate: currDate
+            });
+            this.$emit('selected', new Date(timestamp));
+            this.$emit('input', new Date(timestamp))
+        },
+        close() {
+            this.$setData({
+                showDayView: false,
+                showMonthView: false,
+                showYearView: false
+            });
+            this.$emit('closed');
+        },
+        clickOutside() {
+            console.log(123);
+            if (this.isInline()) {
+                return this.showDayCalendar();
+            }
+            this.resetDefaultDate();
+            this.close();
+        },
+        resetDefaultDate() {
+            if (this.$data.selectedDate === null) {
+                this.$setData({
+                    currDate: this.getDefaultDate()
+                });
+            } else {
+                this.$setData({
+                    currDate: new Date(this.$data.selectedDate.getFullYear(), this.$data.selectedDate.getMonth(), 1).getTime()
+                })
+            }
+        },
+        getDefaultDate() {
+            return new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime()
+        },
+
+        showDayCalendar() {
+            this.close();
+            this.$setData({
+                showDayView: true
+            });
+            this.$emit('opened');
+        },
+        showMonthCalendar() {
+            this.close();
+            this.$setData({
+                showMonthView: true
+            });
+        },
+        showYearCalendar() {
+            this.close();
+            this.$setData({
+                showYearView: true
+            });
+        },
+
         previousMonth() {
             if (this.previousMonthDisabled(this.$data.currDate)) {
                 return false
@@ -114,8 +232,9 @@ export default {
         },
 
         translation() {
-            return DateLanguages.translations[this.$props.language]
+            return DateLanguages.translations[this.$props.language];
         },
+
         daysOfWeek() {
             if (this.$props.mondayFirst) {
                 const tempDays = this.translation().days.slice();
