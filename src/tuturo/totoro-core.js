@@ -22,6 +22,13 @@ function Totoro(opt) {
             }
         }
     }
+    if (opt.computed !== undefined) {
+        for (let computedName in opt.computed) {
+            if (opt.computed.hasOwnProperty(computedName)) {
+                this[computedName] = opt.computed[computedName];
+            }
+        }
+    }
     this.$props = opt.props;
     this.$data = opt.data;
     this.$computed = opt.computed;
@@ -90,8 +97,8 @@ function Totoro(opt) {
         this.$emitMethodsMap = getEmitMethodMap(refSlot);
         if (this.$beforeMount !== undefined && 'function' === typeof this.$beforeMount) {
             this.$beforeMount();
-            this.$renderRepeat = true;
         }
+        this.$renderRepeat = true;
         render(refSlot, this);
         //生命周期函数：页面渲染后
         if (this.$mounted !== undefined && 'function' === typeof this.$mounted) {
@@ -337,26 +344,6 @@ function getRouteSlotRef(routerObject, routeName) {
         }
     }
     return routeSlot;
-}
-
-/**
- * 获取 Toro 的 Html 节点（模板渲染后转换好的节点对象）
- * @param template
- * @param data
- * @param style
- * @param props
- * @returns {Node}
- */
-function getTotoroNode(template, data, style, props) {
-    let templateObject = {
-        data: data,
-        style: style,
-        props: props
-    };
-    let htmlCode = template(templateObject);
-    let htmlCodeContainer = document.createElement('div');
-    htmlCodeContainer.innerHTML = htmlCode;
-    return htmlCodeContainer.firstChild;
 }
 
 /**
