@@ -1,0 +1,110 @@
+.wrapper {
+    position: relative;
+    width: 30%;
+}
+
+.input-container {
+    width: 100%;
+    height: 30px;
+}
+
+.day-container:before,
+.day-container:after,
+.input-container:before,
+.input-container:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.time-input {
+    float: left;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 0 35px;
+}
+
+.input-btn {
+    float: left;
+    height: 30px;
+    width: 30px;
+    border: 1px solid #cccccc;
+    background-color: #f7f7f7;
+    line-height: 30px;
+    text-align: center;
+    color: #9e9e9e;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.input-btn-right {
+    border-radius: 0 5px 5px 0;
+    margin-left: -30px;
+}
+
+.input-btn-left {
+    border-radius: 5px 0 0 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.calender {
+    position: absolute;
+    left: calc(50% - 150px);
+    z-index: 3;
+    background: #fff;
+    width: 300px;
+    height: 30px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.175);
+}
+
+.day-container {
+    height: 30px;
+    width: 100%;
+}
+
+.current-day {
+    float: left;
+    line-height: 28px;
+    width: 100%;
+    text-align: center;
+    padding: 0 30px;
+}
+
+.pre-day {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.next-day {
+    float: left;
+    margin-left: -30px;
+}
+
+.pre-day, .next-day {
+    width: 30px;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.pre-day:hover, .next-day:hover {
+    background-color: #f0f0f0;
+}
+
+.cell {
+    display: inline-block;
+    padding: 0 5px;
+    width: 14.285714285714286%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid transparent;
+}

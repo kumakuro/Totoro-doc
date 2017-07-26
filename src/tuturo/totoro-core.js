@@ -3,6 +3,7 @@
  */
 import page from "page";
 import utils from './totoro-util';
+import runtime from 'art-template/lib/runtime';
 
 export default Totoro;
 
@@ -21,18 +22,19 @@ function Totoro(opt) {
             }
         }
     }
-
-    this.$name = opt.name;
+    this.$props = opt.props;
     this.$data = opt.data;
+    this.$computed = opt.computed;
+    this.$isRoot = opt.isRoot;
+    this.$name = opt.name;
     this.$template = opt.template;
     this.$style = opt.style;
     this.$slotIndex = opt.slotIndex;
     this.$routeName = opt.routeName;
     this.$isRoute = false;
-    this.$props = opt.props;
+    this.$renderRepeat = false;
 
     this.$parent = opt.parent;
-    this.$el = opt.el;
     this.$children = [];
     this.$router = page;
     this.$route = {};
@@ -45,6 +47,9 @@ function Totoro(opt) {
     this.$updated = opt.updated;
     //仅在生命周期 mounted 后才可用
     this.$emitMethodsMap = {};
+
+    this.$el = this.$isRoot ? opt.el : createVirtualDOM(this);
+
 
     /**
      * 触发父节点方法
@@ -73,9 +78,7 @@ function Totoro(opt) {
      */
     this.$create = function () {
         //生命周期函数：页面渲染前
-        if (this.$beforeMount !== undefined && 'function' === typeof this.$beforeMount) {
-            this.$beforeMount();
-        }
+        this.$renderRepeat = false;
         let refSlot = {};
         if (this.$isRoute) {
             refSlot = getRouteSlotRef(this.$routerObject, this.$routeName);
@@ -85,16 +88,21 @@ function Totoro(opt) {
         let props = getPropsFromParentSlots(refSlot);
         this.$props = checkProps(this.$props, props, this.$name);
         this.$emitMethodsMap = getEmitMethodMap(refSlot);
+        if (this.$beforeMount !== undefined && 'function' === typeof this.$beforeMount) {
+            this.$beforeMount();
+            this.$renderRepeat = true;
+        }
         render(refSlot, this);
+        //生命周期函数：页面渲染后
+        if (this.$mounted !== undefined && 'function' === typeof this.$mounted) {
+            this.$mounted();
+        }
         if (this.$children.length !== 0) {
             for (let i = 0, length = this.$children.length; i < length; i++) {
                 this.$children[i].$create();
             }
         }
-        //生命周期函数：页面渲染后
-        if (this.$mounted !== undefined && 'function' === typeof this.$mounted) {
-            this.$mounted();
-        }
+
     };
 
     /**
@@ -130,23 +138,27 @@ function Totoro(opt) {
      * @param newData
      */
     this.$setData = function (newData) {
-        if (this.$beforeUpdate !== undefined && 'function' === typeof this.$beforeUpdate) {
-            this.$beforeUpdate();
-        }
-        Object.assign(this.$data, newData);
-        if (Array.from(this.$el.querySelectorAll('[router-view]')).length > 0) {
-            this.$router(window.location.pathname);
-        } else {
-            let refSlot = this.$isRoute ? getRouteSlotRef(this.$routerObject, this.$routeName) : getSlotRef(this.$parent, this.$name, this.$slotIndex);
-            render(refSlot, this);
-            if (this.$children.length !== 0) {
-                for (let i = 0, length = this.$children.length; i < length; i++) {
-                    this.$children[i].$create();
+        if (this.$renderRepeat) {
+            if (this.$beforeUpdate !== undefined && 'function' === typeof this.$beforeUpdate) {
+                this.$beforeUpdate();
+            }
+            Object.assign(this.$data, newData);
+            if (Array.from(this.$el.querySelectorAll('[router-view]')).length > 0) {
+                this.$router(window.location.pathname);
+            } else {
+                let refSlot = this.$isRoute ? getRouteSlotRef(this.$routerObject, this.$routeName) : getSlotRef(this.$parent, this.$name, this.$slotIndex);
+                render(refSlot, this);
+                if (this.$children.length !== 0) {
+                    for (let i = 0, length = this.$children.length; i < length; i++) {
+                        this.$children[i].$create();
+                    }
                 }
             }
-        }
-        if (this.$updated !== undefined && 'function' === typeof this.$updated) {
-            this.$updated();
+            if (this.$updated !== undefined && 'function' === typeof this.$updated) {
+                this.$updated();
+            }
+        } else {
+            Object.assign(this.$data, newData);
         }
     };
 
@@ -157,7 +169,6 @@ function Totoro(opt) {
     this.$modelInit = function (node) {
         let $this = this;
         let els = utils.getElementsByAttr(node, 'toro-model');
-        console.log(els);
         if (els.length !== 0) {
             for (let i = 0; i < els.length; i++) {
                 let $input = els[i];
@@ -257,10 +268,8 @@ function Totoro(opt) {
                             break;
                     }
                 } else {
-
+                    $input.value = data;
                 }
-
-
             }
         }
     };
@@ -277,7 +286,7 @@ function Totoro(opt) {
  * @param toro
  */
 function render(refSlot, toro) {
-    let newNode = getTotoroNode(toro.$template, toro.$data, toro.$style, toro.$props);
+    let newNode = createVirtualDOM(toro);
     if (toro.$isRoute) {
         newNode.setAttribute("router-view", toro.$routeName === undefined ? '' : toro.$routeName);
     } else {
@@ -421,4 +430,32 @@ function getEmitMethodMap(slotNode) {
         }
     }
     return emitMap;
+}
+
+/**
+ * 创建虚拟 DOM 节点
+ * @param toro
+ * @returns {*}
+ */
+function createVirtualDOM(toro) {
+    if (toro.$computed !== undefined) {
+        runtime.$data = toro.$data;
+        runtime.$props = toro.$props;
+        for (let computedName in toro.$computed) {
+            if (toro.$computed.hasOwnProperty(computedName)) {
+                runtime[computedName] = toro.$computed[computedName];
+            }
+        }
+    }
+    let htmlCode = toro.$template({data: toro.$data, props: toro.$props, style: toro.$style});
+    if (toro.$computed !== undefined) {
+        delete runtime.$data;
+        delete runtime.$props;
+        for (let computedName in toro.$computed) {
+            if (toro.$computed.hasOwnProperty(computedName)) {
+                delete runtime[computedName];
+            }
+        }
+    }
+    return utils.htmlCodeToHtmlNode(htmlCode);
 }

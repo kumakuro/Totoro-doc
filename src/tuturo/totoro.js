@@ -5,6 +5,7 @@ import Totoro from "./totoro-core";
 import Router from './totoro-router';
 import page from "page";
 
+
 export default TotoroCli;
 
 /**
@@ -17,6 +18,7 @@ function TotoroCli(options) {
     //包装对象
     let root = new Totoro({
         el: document.getElementById(options.el),
+        isRoot: true
     });
     //初始化组件树
     initTotoro(root, component);
@@ -44,7 +46,8 @@ function configPage(el, routesConfig) {
         next();
     };
     let totoro = new Totoro({
-        el: document.getElementById(el)
+        el: document.getElementById(el),
+        isRoot: true
     });
     rootRouter.$totoros.push(totoro);
     rootRouter.$pageActions.push(pageAction);
@@ -74,8 +77,8 @@ function registerRouter(parentRouter) {
                         let data = 'function' === typeof component.data ? component.data() : component.data;
                         //创建对象
                         let toro = new Totoro({
-                            el: getComponentNode(component.template, data, component.style, {}),
                             data: data,
+                            isRoot: false,
                             props: {},
                             name: component.name,
                             methods: component.methods,
@@ -88,7 +91,8 @@ function registerRouter(parentRouter) {
                             mounted: component.mounted,
                             beforeUpdate: component.beforeUpdate,
                             updated: component.updated,
-                            routerObject: router
+                            routerObject: router,
+                            computed:component.computed
                         });
                         toro.$isRoute = true;
                         toro.$routeSlot = router.$parent.$totoros[j].$el.querySelector("[router-view='" + key + "']");
@@ -105,13 +109,12 @@ function registerRouter(parentRouter) {
         } else {
             let component = router.$component;
             for (let j = 0; j < router.$parent.$totoros.length; j++) {
-                let el = router.$parent.$totoros[j].$el.querySelector("[router-view]");
                 let data = 'function' === typeof component.data ? component.data() : component.data;
                 //创建对象
                 let toro = new Totoro({
-                    el: getComponentNode(component.template, data, component.style, {}),
                     data: data,
                     props: {},
+                    isRoot:false,
                     name: component.name,
                     methods: component.methods,
                     style: component.style,
@@ -122,7 +125,8 @@ function registerRouter(parentRouter) {
                     mounted: component.mounted,
                     beforeUpdate: component.beforeUpdate,
                     updated: component.updated,
-                    routerObject: router
+                    routerObject: router,
+                    computed:component.computed
                 });
                 toro.$isRoute = true;
                 totoros.push(toro);
@@ -235,21 +239,18 @@ function initPage(routes, routerParent) {
  * @param component
  */
 function initTotoro($parent, component) {
-
     let slots = getParentSlots($parent, component.name);
-
     for (let i = 0; i < slots.length; i++) {
         let props = getPropsFromParentSlots(slots[i]);
         props = checkProps(component.props, props, name);
         let data = 'function' === typeof component.data ? component.data() : component.data;
-        let el = getComponentNode(component.template, data, component.style, props);
         let parent = $parent;
         let methods = component.methods;
         let name = component.name;
         let style = component.style;
         //创建对象
         let turo = new Totoro({
-            el: el,
+            isRoot:false,
             data: data,
             props: props,
             parent: parent,
@@ -263,7 +264,8 @@ function initTotoro($parent, component) {
             beforeMount: component.beforeMount,
             mounted: component.mounted,
             beforeUpdate: component.beforeUpdate,
-            updated: component.updated
+            updated: component.updated,
+            computed:component.computed
         });
         //将对象放入父级 turo 放入子节点数组当中
         $parent.$children.push(turo);
@@ -274,25 +276,6 @@ function initTotoro($parent, component) {
             }
         }
     }
-}
-
-/**
- * 获取组件节点
- * @param template 模板对象
- * @param data 数据对象
- * @param style 样式对象
- * @param props 外部属性
- */
-function getComponentNode(template, data, style, props) {
-    let templateObject = {
-        data: data,
-        style: style,
-        props: props
-    };
-    let htmlCode = template(templateObject);
-    let htmlCodeContainer = document.createElement('div');
-    htmlCodeContainer.innerHTML = htmlCode;
-    return htmlCodeContainer.firstChild;
 }
 
 /**
@@ -336,7 +319,7 @@ function checkProps($props, props, $name) {
         if ($props.hasOwnProperty(key) && !props.hasOwnProperty(key) && $props[key].hasOwnProperty('required') && $props[key].required) {
             throw new Error('组件[' + $name + ']的props属性：' + key + '为必传！，请检查配置');
         }
-       
+
         if ($props.hasOwnProperty(key) && !props.hasOwnProperty(key) && $props[key].hasOwnProperty('default')) {
             props[key] = $props[key]['default']();
         }

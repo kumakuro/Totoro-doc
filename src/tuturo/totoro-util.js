@@ -19,5 +19,9 @@ export default {
         }
         return false;
     },
-
+    htmlCodeToHtmlNode: function (htmlCode) {
+        let htmlCodeContainer = document.createElement('div');
+        htmlCodeContainer.innerHTML = htmlCode;
+        return htmlCodeContainer.firstChild;
+    }
 }

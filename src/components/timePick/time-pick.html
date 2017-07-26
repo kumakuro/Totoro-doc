@@ -1,3 +1,17 @@
-<div>
-    time-pick
+<div class="{{style.wrapper}}">
+    <div class="{{style['input-container']}}">
+        <div class="{{style['input-btn']}} {{style['input-btn-left']}}">▓</div>
+        <input title="time-pick" class="{{style['time-input']}}" type="text" readonly>
+        <div class="{{style['input-btn']}} {{style['input-btn-right']}}">&times;</div>
+    </div>
+    <div class="{{style.calender}}">
+        <div class="{{style['day-container']}}">
+            <div class="{{style['pre-day']}}">◀</div>
+            <div class="{{style['current-day']}}">2017-12-3</div>
+            <div class="{{style['next-day']}}">▶</div>
+        </div>
+        {{each data.daysOfWeek day}}
+        <span class="{{style.cell}} day-header" >{{day}}</span>
+        {{/each}}
+    </div>
 </div>

@@ -20,4 +20,12 @@ export default {
         }
     },
     methods: {},
+    computed: {
+        format: function (data) {
+            return this.abc(data);
+        },
+        abc: function (data) {
+            return data + this.$props.tabArray[0].title;
+        }
+    }
 }

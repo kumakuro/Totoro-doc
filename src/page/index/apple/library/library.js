@@ -3,15 +3,15 @@
  */
 import style from "./library.css";
 import template from "./library.html";
-import timePick from '../../../../components/timePick/time-pick';
 import tabView from '../../../../components/tabView/tab-view';
 import select from '../../../../components/select/select';
+import timePick from '../../../../components/timePick/time-pick';
 
 export default {
     name: 'library',
     style: style,
     template: template,
-    components: [tabView, timePick, select],
+    components: [tabView, select, timePick],
     data() {
         return {
             tabArray: [{
