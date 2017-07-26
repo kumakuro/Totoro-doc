@@ -4,6 +4,9 @@
         <div router-view="tabContent"></div>
     </div>
     <div class="{{style.component}}">
+        <div toro-name="down-button" props-options="{{data.downOptions}}" props-option="{{data.downOption}}"></div>
+    </div>
+    <div class="{{style.component}}">
         <div toro-name="select" props-options="{{data.options}}" props-option="{{data.selectFruit}}"
              emit-select-fruit="select"></div>
     </div>

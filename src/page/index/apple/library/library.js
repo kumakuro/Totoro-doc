@@ -6,12 +6,13 @@ import template from "./library.html";
 import tabView from '../../../../components/tabView/tab-view';
 import select from '../../../../components/select/select';
 import timePick from '../../../../components/timePick/time-pick';
+import downButton from '../../../../components/downButton/downButton';
 
 export default {
     name: 'library',
     style: style,
     template: template,
-    components: [tabView, select, timePick],
+    components: [tabView, select, timePick, downButton],
     data() {
         return {
             tabArray: [{
@@ -43,7 +44,22 @@ export default {
             selectFruit: {
                 text: '',
                 value: ''
-            }
+            },
+            downOption:{
+                text:"我的前半生"
+            },
+            downOptions:[{
+                text:'贺涵',
+            },{
+                text:'罗子君',
+            },{
+                text:'唐晶',
+            },{
+                text:'陈俊生',
+            },{
+                text:'00',
+            }]
+
         }
     },
     methods: {

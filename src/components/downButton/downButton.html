@@ -1,0 +1,15 @@
+<div class="{{style.wrapper}}">
+    <div class="{{style.option}}">
+        <div class="{{style.left}} {{style.btn}}">{{props.option.text}}</div>
+        <div class="{{style.right}} {{style.btn}}" toro-on="click|showOptions|{{data.isVisibility}}">▼</div>
+    </div>
+    <div class="{{style.downSlide}}">
+        <ul class="{{ data.isVisibility ? '' : style.none}}">
+            {{each props.options option idx}}
+            <li toro-on="click|select|{{idx}}">{{option.text}}</li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="{{style.backdrop}} {{ data.isVisibility ? '' : style.none}}"  toro-on="click|showOptions|true"></div>
+</div>
