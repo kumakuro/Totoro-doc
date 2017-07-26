@@ -75,8 +75,6 @@ function Totoro(opt) {
             } else {
                 throw new Error('父组件尚未包含[' + methodName + ']方法,请检查父组件 js 配置');
             }
-        } else {
-            throw new Error('尚未注册事件[' + eventName + '],请检查 Html 配置');
         }
     };
 

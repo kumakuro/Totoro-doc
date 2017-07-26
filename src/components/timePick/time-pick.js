@@ -61,6 +61,20 @@ export default {
             }
             return false
         },
+
+        nextMonthDisabled(currDate) {
+            if (typeof this.$props.disabled === 'undefined' || typeof this.disabled.$props.from === 'undefined' || !this.disabled.$props.from) {
+                return false
+            }
+            let d = new Date(currDate);
+            if (
+                this.$props.disabled.from.getMonth() <= d.getMonth() &&
+                this.$props.disabled.from.getFullYear() <= d.getFullYear()
+            ) {
+                return true
+            }
+            return false
+        }
     },
 
     methods: {
@@ -71,9 +85,32 @@ export default {
             let d = new Date(this.$data.currDate);
             d.setMonth(d.getMonth() - 1);
             this.$setData({
-                currDate: d.getTime()
+                currDate: d.getTime(),
+                days: this.days(d.getTime()),
+                currYear: this.currYear(d.getTime()),
+                currMonthName: this.currMonthName(d.getTime()),
+                daysOfWeek: this.daysOfWeek(),
+                blankDays: new Array(this.blankDays(d.getTime())),
             });
-            // this.$emit('changedMonth', d)
+            this.$emit('changedMonth', d)
+        },
+
+        nextMonth() {
+            if (this.nextMonthDisabled(this.$data.currDate)) {
+                return false
+            }
+            let d = new Date(this.$data.currDate);
+            const daysInMonth = DateUtils.daysInMonth(d.getFullYear(), d.getMonth());
+            d.setDate(d.getDate() + daysInMonth);
+            this.$setData({
+                currDate: d.getTime(),
+                days: this.days(d.getTime()),
+                currYear: this.currYear(d.getTime()),
+                currMonthName: this.currMonthName(d.getTime()),
+                daysOfWeek: this.daysOfWeek(),
+                blankDays: new Array(this.blankDays(d.getTime())),
+            });
+            this.$emit('changedMonth', d)
         },
 
         translation() {
@@ -87,16 +124,16 @@ export default {
             }
             return this.translation().days;
         },
-        blankDays() {
-            const d = new Date(this.$data.currDate);
+        blankDays(currDate) {
+            const d = new Date(currDate);
             let dObj = new Date(d.getFullYear(), d.getMonth(), 1, d.getHours(), d.getMinutes());
             if (this.$props.mondayFirst) {
                 return dObj.getDay() > 0 ? dObj.getDay() - 1 : 6
             }
             return dObj.getDay()
         },
-        days() {
-            const d = new Date(this.$data.currDate);
+        days(currDate) {
+            const d = new Date(currDate);
             let days = [];
             // set up a new date object to the beginning of the current 'page'
             let dObj = new Date(d.getFullYear(), d.getMonth(), 1, d.getHours(), d.getMinutes())
@@ -176,28 +213,23 @@ export default {
         isDefined(prop) {
             return typeof prop !== 'undefined' && prop
         },
-        currMonthName() {
-            const d = new Date(this.$data.currDate);
+        currMonthName(currDate) {
+            const d = new Date(currDate);
             return DateUtils.getMonthNameAbbr(d.getMonth(), this.translation().months.abbr)
         },
-        currYear() {
-            const d = new Date(this.$data.currDate);
+        currYear(currDate) {
+            const d = new Date(currDate);
             return d.getFullYear()
         },
     },
 
     beforeMount() {
-        let daysOfWeek = this.daysOfWeek();
-        let blankDays = this.blankDays();
-        let days = this.days();
-        let currMonthName = this.currMonthName();
-        let currYear = this.currYear();
         this.$setData({
-            daysOfWeek: daysOfWeek,
-            blankDays: new Array(blankDays),
-            days: days,
-            currMonthName: currMonthName,
-            currYear: currYear
+            daysOfWeek: this.daysOfWeek(),
+            blankDays: new Array(this.blankDays(this.$data.currDate)),
+            days: this.days(this.$data.currDate),
+            currMonthName: this.currMonthName(this.$data.currDate),
+            currYear: this.currYear(this.$data.currDate)
         })
     }
 }

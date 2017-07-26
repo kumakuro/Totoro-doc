@@ -6,9 +6,12 @@
     </div>
     <div class="{{style.calender}}">
         <div class="{{style['day-container']}}">
-            <div class="{{style['pre-day']}} {{ data.currDate|previousMonthDisabled ? '' : style.disabled }}" toro-on="click|previousMonth">◀</div>
+            <div class="{{style['pre-day']}} {{ data.currDate|previousMonthDisabled ? '' : style.disabled }}"
+                 toro-on="click|previousMonth">
+                ◀
+            </div>
             <div class="{{style['current-day']}}">{{data.currMonthName}} {{data.currYear}}</div>
-            <div class="{{style['next-day']}}">▶</div>
+            <div class="{{style['next-day']}} {{data.currData|nextMonthDisabled ? '': style.disabled}}" toro-on="click|nextMonth">▶</div>
         </div>
         {{each data.daysOfWeek day}}
         <div class="{{style.cell}} {{style['day-header']}}">{{day}}</div>
