@@ -20,6 +20,4 @@ export default {
         }
     },
     methods: {},
-    computed: {
-    }
 }
