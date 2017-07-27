@@ -63,66 +63,66 @@ export default {
             }, {
                 text: '00',
             }],
-            tabChoose:{
-                htmlContent:'<div toro-name="tab-view" emit-change-tab="change" props-tab-array="{{data.tabArray}}" props-more="{{data.tabMore}}"></div>\n' +
+            tabChoose: {
+                htmlContent: '<div toro-name="tab-view" emit-change-tab="change" props-tab-array="{{data.tabArray}}" props-more="{{data.tabMore}}"></div>\n' +
                 '<div router-view="tabContent"></div>',
-                htmlExplain:[{
-                    fullName:'toro-name="tab-view"',
-                    attr:'toro-name',
-                    func:'填写组件名称，方便编译的时候，找到对应的组件'
-                },{
-                    fullName:'emit-change-tab="change"',
-                    attr:'emit-change-tab',
-                    func:'__________________'
-                },{
-                    fullName:'props-tab-array={{data.htmlContent}}',
-                    attr:'props-tab-array',
-                    func:'__________________'
-                },{
-                    fullName:'emit-change-tab="change"',
-                    attr:'emit-change-tab',
-                    func:'__________________'
+                htmlExplain: [{
+                    fullName: 'toro-name="tab-view"',
+                    attr: 'toro-name',
+                    func: '填写组件名称，方便编译的时候，找到对应的组件'
+                }, {
+                    fullName: 'emit-change-tab="change"',
+                    attr: 'change',
+                    func: '当 Tab 切换时，父组件的 changeTab 方法可以收到内部 change 事件的返回值，返回的是 TabArray 的索引'
+                }, {
+                    fullName: 'props-tab-array={{data.htmlContent}}',
+                    attr: 'props-tab-array',
+                    func: '传入的 Tab 标签的内容及对应跳转的链接地址'
+                }, {
+                    fullName: 'props-more={{data.tabMore}}',
+                    attr: 'props-more',
+                    func: '如果 Tab 组件的右侧需要一个"更多"的选项跳转到新页面时，传入这个参数'
                 }]
-            },buttonDown:{
-                htmlContent:'<div toro-name="down-button" props-options="{{data.downOptions}}" props-option="{{data.downOption}}"></div>',
-                htmlExplain:[{
-                    fullName:'toro-name="down-button"',
-                    attr:'toro-name',
-                    func:'填写组件名称，方便编译的时候，找到对应的组件'
-                },{
-                    fullName:'props-options="{{data.downOptions}}"',
-                    attr:'props-options',
-                    func:'传递外部的数组downOptions到组件里，是下拉框里的内容'
-                },{
-                    fullName:'props-option="{{data.downOption}}"',
-                    attr:'props-option',
-                    func:'用来传按钮的名字，嗯 '
+            }, buttonDown: {
+                htmlContent: '<div toro-name="down-button" props-options="{{data.downOptions}}" props-option="{{data.downOption}}"></div>',
+                htmlExplain: [{
+                    fullName: 'toro-name="down-button"',
+                    attr: 'toro-name',
+                    func: '填写组件名称，方便编译的时候，找到对应的组件'
+                }, {
+                    fullName: 'props-options="{{data.downOptions}}"',
+                    attr: 'props-options',
+                    func: '传递外部的数组downOptions到组件里，是下拉框里的内容'
+                }, {
+                    fullName: 'props-option="{{data.downOption}}"',
+                    attr: 'props-option',
+                    func: '用来传按钮的名字，嗯 '
                 }]
-            },select:{
-                htmlContent:'<div toro-name="select" props-options="{{data.options}}" props-option="{{data.selectFruit}}" emit-select-fruit="select"></div>',
-                htmlExplain:[{
-                    fullName:'toro-name="select"',
-                    attr:'toro-name',
-                    func:'填写组件名称，方便编译的时候，找到对应的组件'
-                },{
-                    fullName:'props-options="{{data.options}}"',
-                    attr:'props-options',
-                    func:'__________________'
-                },{
-                    fullName:'props-option="{{data.selectFruit}}"',
-                    attr:'props-option',
-                    func:'__________________'
-                },{
-                    fullName:'emit-select-fruit="select"',
-                    attr:'emit-select-fruit',
-                    func:'__________________'
+            }, select: {
+                htmlContent: '<div toro-name="select" props-options="{{data.options}}" props-option="{{data.selectFruit}}" emit-select-fruit="select"></div>',
+                htmlExplain: [{
+                    fullName: 'toro-name="select"',
+                    attr: 'toro-name',
+                    func: '填写组件名称，方便编译的时候，找到对应的组件'
+                }, {
+                    fullName: 'props-options="{{data.options}}"',
+                    attr: 'props-options',
+                    func: '传入下拉列表的可选项目数组'
+                }, {
+                    fullName: 'props-option="{{data.selectFruit}}"',
+                    attr: 'props-option',
+                    func: '如果项目需要设置一个默认的选项，则可以传入这个值'
+                }, {
+                    fullName: 'emit-*="select"',
+                    attr: 'select',
+                    func: '用于监听组件内部的 select 事件，当选定某个选项时将传出这个选项的对应数据'
                 }]
-            },timePick:{
-                htmlContent:'<div toro-name="time-pick"></div>',
-                htmlExplain:[{
-                    fullName:'toro-name="time-pick"',
-                    attr:'toro-name',
-                    func:'填写组件名称，方便编译的时候，找到对应的组件'
+            }, timePick: {
+                htmlContent: '<div toro-name="time-pick"></div>',
+                htmlExplain: [{
+                    fullName: 'toro-name="time-pick"',
+                    attr: 'toro-name',
+                    func: '填写组件名称，方便编译的时候，找到对应的组件'
                 }]
             },
 
