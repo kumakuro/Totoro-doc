@@ -1,16 +1,93 @@
 <div class="container">
+    <h1 class="h1 page-header">组件库</h1>
+    <div class="section">
+        这里是组件库。
+        为了能更加便捷的开发，Totoro选择尽可能的封装一些必要的组件，比如：时间选择器、tab选择框、下拉框等等。
+    </div>
+
+
+
+    <h2 class="h2">tab选择器</h2>
+    <div class="section">
+        为开发的网站提供tab选择器
+    </div>
     <div class="{{style.component}}">
         <div toro-name="tab-view" emit-change-tab="change" props-tab-array="{{data.tabArray}}" props-more="{{data.tabMore}}"></div>
         <div router-view="tabContent"></div>
     </div>
+    <div class="font-sub-first">html：</div>
+    <div class="code"><pre>{{data.tabChoose.htmlContent}} </pre></div>
+    <div class="section">
+        在上面的代码中，
+        <ol>
+            {{each data.tabChoose.htmlExplain liItem}}
+            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}，用法：<span class="label-code">{{liItem.fullName}}</span>；</li>
+            {{/each}}
+        </ol>
+    </div>
+    <!--<div class="font-sub-first">JS：</div>-->
+    <!--<div class="code"><pre>{{data.tabChoose.htmlContent}} </pre></div>-->
+    <!--<div class="section">-->
+        <!--在上面的代码中，-->
+        <!--<ol>-->
+            <!--{{each data.tabChoose.htmlExplain liItem}}-->
+            <!--<li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}，用法：<span class="label-code">{{liItem.fullName}}</span>；</li>-->
+            <!--{{/each}}-->
+        <!--</ol>-->
+    <!--</div>-->
+
+
+    <h2 class="h2">按钮下拉框</h2>
+    <div class="section">常用于，页面的头部右侧，鼠标移动至用户名上时，会出现下拉框。</div>
     <div class="{{style.component}}">
         <div toro-name="down-button" props-options="{{data.downOptions}}" props-option="{{data.downOption}}"></div>
     </div>
+    <div class="font-sub-first">html：</div>
+    <div class="code"><pre>{{data.buttonDown.htmlContent}} </pre></div>
+    <div class="section">
+        在上面的代码中，
+        <ol>
+            {{each data.buttonDown.htmlExplain liItem}}
+            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}，用法：<span class="label-code">{{liItem.fullName}}</span>；</li>
+            {{/each}}
+        </ol>
+    </div>
+
+
+
+    <h2 class="h2">下拉框</h2>
     <div class="{{style.component}}">
         <div toro-name="select" props-options="{{data.options}}" props-option="{{data.selectFruit}}"
              emit-select-fruit="select"></div>
     </div>
+    <div class="font-sub-first">html：</div>
+    <div class="code"><pre>{{data.select.htmlContent}} </pre></div>
+    <div class="section">
+        在上面的代码中，
+        <ol>
+            {{each data.select.htmlExplain liItem}}
+            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}，用法：<span class="label-code">{{liItem.fullName}}</span>；</li>
+            {{/each}}
+        </ol>
+    </div>
+
+
+
+    <h2 class="h2">时间选择器</h2>
     <div class="{{style.component}}">
         <div toro-name="time-pick"></div>
     </div>
+    <div class="font-sub-first">html：</div>
+    <div class="code"><pre>{{data.timePick.htmlContent}} </pre></div>
+    <div class="section">
+        在上面的代码中，
+        <ol>
+            {{each data.timePick.htmlExplain liItem}}
+            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}，用法：<span class="label-code">{{liItem.fullName}}</span>；</li>
+            {{/each}}
+        </ol>
+    </div>
+
+
+
 </div>
