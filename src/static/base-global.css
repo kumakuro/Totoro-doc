@@ -5,6 +5,8 @@ url('//at.alicdn.com/t/font_lx3kve8t7l9xusor.ttf') format('truetype'),
 url('//at.alicdn.com/t/font_lx3kve8t7l9xusor.svg#iconfont') format('svg');}
 
 :global(.font-logo) {position: relative;display: inline-block;font-family: 'iconfont';font-style: normal;font-weight: 400;line-height: 1;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+:global(.wrapper:before){content: '';display: table;clear: both;}
+:global(.wrapper:after){content: '';display: table;clear: both;}
 
 :global(::-webkit-input-placeholder) {font-size: 12px;color: #c7c7c7;}
 :global(:-moz-placeholder) {font-size: 12px;color: #c7c7c7;}
@@ -12,7 +14,6 @@ url('//at.alicdn.com/t/font_lx3kve8t7l9xusor.svg#iconfont') format('svg');}
 :global(:-ms-input-placeholder) {font-size: 12px;color: #c7c7c7;}
 :global(input:-ms-input-placeholder) {font-size: 12px;color: #c7c7c7;}
 :global(input::-webkit-input-placeholder) {font-size: 12px;color: #c7c7c7;}
-
 
 :global(.font-title) {font-size: 22px;font-weight: bolder;color: #585858;}
 :global(.font-bread) {font-size: 16px;color: #585858;}
@@ -27,11 +28,12 @@ url('//at.alicdn.com/t/font_lx3kve8t7l9xusor.svg#iconfont') format('svg');}
 :global(.paragraph-large) {font-size: 14px;line-height: 28px;margin-bottom: 20px;letter-spacing: 0.5px;}
 :global(.paragraph-small) {font-size: 13px;line-height: 21px;margin-bottom: 20px;letter-spacing: 0.5px;}
 
-:global(.text-normal) {font-size: 13px;color: #0591e6;}
-:global(.text-warn) {font-size: 13px;color: #ff7344;}
-:global(.text-finish) {font-size: 13px;color: #28bf85;}
-:global(.text-error) {font-size: 13px;color: #ff4c4c;}
-:global(.text-forbid) {font-size: 13px;color: #969696;}
+:global(.text-small){float: left;font-size: 13px;}
+:global(.text-normal) {color: #0591e6;}
+:global(.text-warn) {color: #ff7344;}
+:global(.text-finish) {color: #28bf85;}
+:global(.text-error) {color: #ff4c4c;}
+:global(.text-forbid) {color: #969696;}
 
 :global(.label-small) {color: #ffffff;font-size: 12px;float: left;padding: 0px 1px;cursor: default;text-align: center;}
 :global(.label-small-normal) {background-color: #0591e6;}
@@ -74,4 +76,4 @@ url('//at.alicdn.com/t/font_lx3kve8t7l9xusor.svg#iconfont') format('svg');}
 :global(.first-btn:hover) {background-color: #f55e33;}
 :global(.first-btn.disable) {background-color: #fbad93;color: #ff7344;}
 
-:global(.clear) {clear: both;}
+:global(.clear){clear: both;}
