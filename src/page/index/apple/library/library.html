@@ -19,9 +19,9 @@
     <div class="code"><pre>{{data.tabChoose.htmlContent}} </pre></div>
     <div class="section">
         在上面的代码中，
-        <ol>
+        <ol class="{{style.ol}}">
             {{each data.tabChoose.htmlExplain liItem}}
-            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}，用法：<span class="label-code">{{liItem.fullName}}</span>；</li>
+            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}；</li>
             {{/each}}
         </ol>
     </div>
@@ -46,9 +46,9 @@
     <div class="code"><pre>{{data.buttonDown.htmlContent}} </pre></div>
     <div class="section">
         在上面的代码中，
-        <ol>
+        <ol class="{{style.ol}}">
             {{each data.buttonDown.htmlExplain liItem}}
-            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}，用法：<span class="label-code">{{liItem.fullName}}</span>；</li>
+            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}；</li>
             {{/each}}
         </ol>
     </div>
@@ -63,10 +63,10 @@
     <div class="font-sub-first">html：</div>
     <div class="code"><pre>{{data.select.htmlContent}} </pre></div>
     <div class="section">
-        在上面的代码中，
-        <ol>
+        <!--在上面的代码中，-->
+        <ol class="{{style .ol}}">
             {{each data.select.htmlExplain liItem}}
-            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}，用法：<span class="label-code">{{liItem.fullName}}</span>；</li>
+            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}；</li>
             {{/each}}
         </ol>
     </div>
@@ -81,9 +81,9 @@
     <div class="code"><pre>{{data.timePick.htmlContent}} </pre></div>
     <div class="section">
         在上面的代码中，
-        <ol>
+        <ol class="{{style.ol}}">
             {{each data.timePick.htmlExplain liItem}}
-            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}，用法：<span class="label-code">{{liItem.fullName}}</span>；</li>
+            <li><span class="label-code">{{liItem.attr}}</span>是{{liItem.func}}；</li>
             {{/each}}
         </ol>
     </div>
