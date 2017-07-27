@@ -6,8 +6,8 @@
         </li>
         {{/each}}
         <li class="{{style.more}}">
-            <a toro-link="/library/two" active-class="{{style.active}}">
-                More<span class="torodoc-font {{style['icon-right']}}"></span>
+            <a toro-link="{{props.more.href}}" active-class="{{style.active}}">
+                {{props.more.title}}<span class="torodoc-font {{style['icon-right']}}"></span>
             </a>
         </li>
     </ul>

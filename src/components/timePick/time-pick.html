@@ -22,7 +22,7 @@
         <div class="{{style.cell}}"></div>
         {{/each}}
         {{each data.days day}}
-        <div class="{{style.cell}}" toro-on="click|selectDate|{{day}}">{{day.date}}</div>
+        <div class="{{style.cell}} {{style['day-content']}}" toro-on="click|selectDate|{{day}}">{{day.date}}</div>
         {{/each}}
     </div>
     <div class="{{ data.showDayView || data.showMonthView || data.showYearView ? '' : style.hidden}} {{style.backdrop}}" toro-on="click|clickOutside">

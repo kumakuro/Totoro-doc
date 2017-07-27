@@ -25,6 +25,10 @@ export default {
                 title: 'TabTwo',
                 href: '/library/two'
             }],
+            tabMore: {
+                title: 'More',
+                href: '/library/two',
+            },
             options: [{
                 text: '苹果',
                 value: '1'
@@ -45,19 +49,19 @@ export default {
                 text: '',
                 value: ''
             },
-            downOption:{
-                text:"我的前半生"
+            downOption: {
+                text: "我的前半生"
             },
-            downOptions:[{
-                text:'贺涵',
-            },{
-                text:'罗子君',
-            },{
-                text:'唐晶',
-            },{
-                text:'陈俊生',
-            },{
-                text:'00',
+            downOptions: [{
+                text: '贺涵',
+            }, {
+                text: '罗子君',
+            }, {
+                text: '唐晶',
+            }, {
+                text: '陈俊生',
+            }, {
+                text: '00',
             }]
 
         }
