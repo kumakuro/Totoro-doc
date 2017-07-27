@@ -24,7 +24,7 @@ export default {
             href: '/library'
         }],
         selectItem: 0,
-        title: 'Totoro Frame'
+        title: 'Totoro MvvM'
     },
     methods: {}
 }
