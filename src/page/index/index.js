@@ -8,10 +8,4 @@ export default {
     template: template,
     props: {},
     data: {},
-    created() {
-        let data = {
-            abc: 123
-        };
-        data.abc='123';
-    }
 }
